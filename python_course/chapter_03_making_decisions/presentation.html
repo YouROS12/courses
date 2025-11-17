@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3: Making Decisions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        .code-font {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col items-center justify-center">
+    <div class="absolute top-10 right-10 w-32 h-32 rounded-full bg-blue-100 opacity-50"></div>
+    <div class="absolute bottom-10 left-10 w-24 h-24 rounded-full bg-blue-200 opacity-30"></div>
+
+    <div class="text-center z-10">
+        <div class="mb-6">
+            <svg class="w-24 h-24 mx-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
+            </svg>
+        </div>
+        <h1 class="text-6xl font-bold text-gray-800 mb-4">Chapter 3</h1>
+        <h2 class="text-4xl font-semibold text-blue-600 mb-6">Making Decisions</h2>
+        <div class="w-32 h-1 bg-blue-600 mx-auto mb-6"></div>
+        <p class="text-2xl text-gray-600">Teaching Programs to Think</p>
+    </div>
+
+    <div class="absolute bottom-0 w-full h-2 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-400"></div>
+</div>
+
+<!-- Slide 2: Introduction -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Programs Need to Make Choices 🤔</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-12"></div>
+
+    <div class="space-y-8">
+        <p class="text-2xl text-gray-600">In real life, we make decisions every day:</p>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-blue-50 p-6 rounded-lg">
+                <p class="text-2xl text-gray-700">☀️ If it's sunny → Go outside</p>
+            </div>
+            <div class="bg-blue-50 p-6 rounded-lg">
+                <p class="text-2xl text-gray-700">🌧️ If it's raining → Stay inside</p>
+            </div>
+            <div class="bg-blue-50 p-6 rounded-lg">
+                <p class="text-2xl text-gray-700">🎂 If age ≥ 18 → Adult</p>
+            </div>
+            <div class="bg-blue-50 p-6 rounded-lg">
+                <p class="text-2xl text-gray-700">💰 If price > budget → Can't buy</p>
+            </div>
+        </div>
+
+        <div class="bg-blue-600 text-white p-8 rounded-lg text-center">
+            <p class="text-3xl font-bold">Programs need to make similar decisions!</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Boolean Values -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Boolean Values: True or False ✓✗</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-12"></div>
+
+    <div class="space-y-8">
+        <p class="text-2xl text-gray-600">Boolean is a data type with only two possible values</p>
+
+        <div class="grid grid-cols-2 gap-8">
+            <div class="bg-green-100 border-4 border-green-500 p-8 rounded-lg text-center">
+                <h3 class="text-5xl font-bold text-green-700 mb-4">True</h3>
+                <p class="text-2xl text-gray-700">Yes, Correct, 1</p>
+            </div>
+
+            <div class="bg-red-100 border-4 border-red-500 p-8 rounded-lg text-center">
+                <h3 class="text-5xl font-bold text-red-700 mb-4">False</h3>
+                <p class="text-2xl text-gray-700">No, Incorrect, 0</p>
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-8 rounded-lg">
+            <h3 class="text-3xl font-semibold text-gray-700 mb-4">Examples:</h3>
+            <div class="code-font text-2xl text-gray-800 space-y-2">
+                <div>is_sunny = <span class="text-green-600">True</span></div>
+                <div>is_raining = <span class="text-red-600">False</span></div>
+                <div>has_permission = <span class="text-green-600">True</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Comparison Operators -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Comparison Operators ⚖️</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="grid grid-cols-2 gap-6">
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">== (Equal to)</h3>
+            <div class="code-font text-xl text-gray-800">5 == 5 → True</div>
+            <div class="code-font text-xl text-gray-800">5 == 3 → False</div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">!= (Not equal to)</h3>
+            <div class="code-font text-xl text-gray-800">5 != 3 → True</div>
+            <div class="code-font text-xl text-gray-800">5 != 5 → False</div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">&gt; (Greater than)</h3>
+            <div class="code-font text-xl text-gray-800">10 &gt; 5 → True</div>
+            <div class="code-font text-xl text-gray-800">3 &gt; 7 → False</div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">&lt; (Less than)</h3>
+            <div class="code-font text-xl text-gray-800">3 &lt; 7 → True</div>
+            <div class="code-font text-xl text-gray-800">10 &lt; 5 → False</div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">&gt;= (Greater or equal)</h3>
+            <div class="code-font text-xl text-gray-800">5 &gt;= 5 → True</div>
+            <div class="code-font text-xl text-gray-800">3 &gt;= 7 → False</div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">&lt;= (Less or equal)</h3>
+            <div class="code-font text-xl text-gray-800">5 &lt;= 5 → True</div>
+            <div class="code-font text-xl text-gray-800">10 &lt;= 5 → False</div>
+        </div>
+    </div>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mt-6">
+        <p class="text-xl text-gray-700">
+            <span class="font-semibold">⚠️ Important:</span> Use == for comparison, not = (which is for assignment)
+        </p>
+    </div>
+</div>
+
+<!-- Slide 5: If Statement -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">The if Statement 🚦</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-12"></div>
+
+    <div class="space-y-8">
+        <p class="text-2xl text-gray-600">Execute code only if a condition is True</p>
+
+        <div class="bg-white border-2 border-blue-200 p-8 rounded-lg">
+            <h3 class="text-3xl font-semibold text-gray-700 mb-4">Syntax:</h3>
+            <div class="code-font text-2xl text-gray-800 space-y-2">
+                <div><span class="text-blue-600">if</span> condition:</div>
+                <div class="ml-12"># code to execute if True</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-8 rounded-lg">
+            <h3 class="text-3xl font-semibold text-gray-700 mb-4">Example:</h3>
+            <div class="code-font text-2xl text-gray-800 space-y-2">
+                <div>age = <span class="text-purple-600">20</span></div>
+                <div></div>
+                <div><span class="text-blue-600">if</span> age &gt;= <span class="text-purple-600">18</span>:</div>
+                <div class="ml-12">print(<span class="text-green-600">"You are an adult"</span>)</div>
+            </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6">
+            <p class="text-2xl text-gray-700">
+                <span class="font-semibold">Key Point:</span> The colon (:) and indentation are required!
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: If-Else Statement -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">The if-else Statement 🔀</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-12"></div>
+
+    <div class="space-y-8">
+        <p class="text-2xl text-gray-600">Do one thing if True, something else if False</p>
+
+        <div class="bg-white border-2 border-blue-200 p-8 rounded-lg">
+            <h3 class="text-3xl font-semibold text-gray-700 mb-4">Syntax:</h3>
+            <div class="code-font text-2xl text-gray-800 space-y-2">
+                <div><span class="text-blue-600">if</span> condition:</div>
+                <div class="ml-12"># code if True</div>
+                <div><span class="text-blue-600">else</span>:</div>
+                <div class="ml-12"># code if False</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-8 rounded-lg">
+            <h3 class="text-3xl font-semibold text-gray-700 mb-4">Example:</h3>
+            <div class="code-font text-2xl text-gray-800 space-y-2">
+                <div>temperature = <span class="text-purple-600">25</span></div>
+                <div></div>
+                <div><span class="text-blue-600">if</span> temperature &gt; <span class="text-purple-600">30</span>:</div>
+                <div class="ml-12">print(<span class="text-green-600">"It's hot!"</span>)</div>
+                <div><span class="text-blue-600">else</span>:</div>
+                <div class="ml-12">print(<span class="text-green-600">"It's nice!"</span>)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: If-Elif-Else Statement -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">The if-elif-else Statement 🔀🔀</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Check multiple conditions in order</p>
+
+        <div class="bg-white border-2 border-blue-200 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-gray-700 mb-3">Syntax:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-1">
+                <div><span class="text-blue-600">if</span> condition1:</div>
+                <div class="ml-8"># code if condition1 is True</div>
+                <div><span class="text-blue-600">elif</span> condition2:</div>
+                <div class="ml-8"># code if condition2 is True</div>
+                <div><span class="text-blue-600">else</span>:</div>
+                <div class="ml-8"># code if all conditions are False</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-gray-700 mb-3">Example: Grade System</h3>
+            <div class="code-font text-xl text-gray-800 space-y-1">
+                <div>score = <span class="text-purple-600">85</span></div>
+                <div></div>
+                <div><span class="text-blue-600">if</span> score &gt;= <span class="text-purple-600">90</span>:</div>
+                <div class="ml-8">print(<span class="text-green-600">"Grade: A"</span>)</div>
+                <div><span class="text-blue-600">elif</span> score &gt;= <span class="text-purple-600">80</span>:</div>
+                <div class="ml-8">print(<span class="text-green-600">"Grade: B"</span>)</div>
+                <div><span class="text-blue-600">elif</span> score &gt;= <span class="text-purple-600">70</span>:</div>
+                <div class="ml-8">print(<span class="text-green-600">"Grade: C"</span>)</div>
+                <div><span class="text-blue-600">else</span>:</div>
+                <div class="ml-8">print(<span class="text-green-600">"Grade: F"</span>)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Logical Operators -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Logical Operators 🔗</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Combine multiple conditions</p>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-3xl font-semibold text-blue-600 mb-4">and (Both must be True)</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>True <span class="text-blue-600">and</span> True → True</div>
+                <div>True <span class="text-blue-600">and</span> False → False</div>
+                <div>False <span class="text-blue-600">and</span> False → False</div>
+            </div>
+            <div class="mt-4 text-xl text-gray-700">
+                Example: age &gt;= 18 <span class="text-blue-600">and</span> has_license == True
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-3xl font-semibold text-blue-600 mb-4">or (At least one must be True)</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>True <span class="text-blue-600">or</span> True → True</div>
+                <div>True <span class="text-blue-600">or</span> False → True</div>
+                <div>False <span class="text-blue-600">or</span> False → False</div>
+            </div>
+            <div class="mt-4 text-xl text-gray-700">
+                Example: is_weekend <span class="text-blue-600">or</span> is_holiday
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-3xl font-semibold text-blue-600 mb-4">not (Reverses the value)</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div><span class="text-blue-600">not</span> True → False</div>
+                <div><span class="text-blue-600">not</span> False → True</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: Real-World Example -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Real-World Example 🎫</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="bg-white p-8 rounded-lg shadow-lg">
+        <h3 class="text-3xl font-semibold text-blue-600 mb-6">Movie Ticket Pricing</h3>
+        <div class="code-font text-xl text-gray-800 space-y-2">
+            <div>age = int(input(<span class="text-green-600">"Enter your age: "</span>))</div>
+            <div>is_student = input(<span class="text-green-600">"Are you a student? (yes/no): "</span>)</div>
+            <div></div>
+            <div><span class="text-blue-600">if</span> age &lt; <span class="text-purple-600">12</span>:</div>
+            <div class="ml-8">price = <span class="text-purple-600">5</span></div>
+            <div class="ml-8">print(<span class="text-green-600">"Child ticket: $5"</span>)</div>
+            <div><span class="text-blue-600">elif</span> age &gt;= <span class="text-purple-600">65</span>:</div>
+            <div class="ml-8">price = <span class="text-purple-600">7</span></div>
+            <div class="ml-8">print(<span class="text-green-600">"Senior ticket: $7"</span>)</div>
+            <div><span class="text-blue-600">elif</span> is_student == <span class="text-green-600">"yes"</span>:</div>
+            <div class="ml-8">price = <span class="text-purple-600">8</span></div>
+            <div class="ml-8">print(<span class="text-green-600">"Student ticket: $8"</span>)</div>
+            <div><span class="text-blue-600">else</span>:</div>
+            <div class="ml-8">price = <span class="text-purple-600">12</span></div>
+            <div class="ml-8">print(<span class="text-green-600">"Regular ticket: $12"</span>)</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: Practice Time! -->
+<div class="slide bg-gradient-to-br from-blue-600 to-blue-400 flex flex-col items-center justify-center text-white">
+    <div class="text-center">
+        <svg class="w-32 h-32 mx-auto mb-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h1 class="text-6xl font-bold mb-6">Time to Decide!</h1>
+        <p class="text-3xl mb-8">Open the practice notebook and start making smart programs</p>
+        <div class="w-32 h-1 bg-white mx-auto mb-8"></div>
+        <p class="text-2xl">Your programs are about to get much smarter! 🧠</p>
+    </div>
+</div>
+
+</body>
+</html>

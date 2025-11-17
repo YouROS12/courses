@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5: Collections - Working with Lists</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        .code-font {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col items-center justify-center">
+    <div class="absolute top-10 right-10 w-32 h-32 rounded-full bg-blue-100 opacity-50"></div>
+    <div class="absolute bottom-10 left-10 w-24 h-24 rounded-full bg-blue-200 opacity-30"></div>
+
+    <div class="text-center z-10">
+        <div class="mb-6">
+            <svg class="w-24 h-24 mx-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+            </svg>
+        </div>
+        <h1 class="text-6xl font-bold text-gray-800 mb-4">Chapter 5</h1>
+        <h2 class="text-4xl font-semibold text-blue-600 mb-6">Working with Lists</h2>
+        <div class="w-32 h-1 bg-blue-600 mx-auto mb-6"></div>
+        <p class="text-2xl text-gray-600">Organizing Data Like a Pro</p>
+    </div>
+
+    <div class="absolute bottom-0 w-full h-2 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-400"></div>
+</div>
+
+<!-- Slide 2: What Are Lists? -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">What Are Lists? 📋</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-12"></div>
+
+    <div class="space-y-8">
+        <p class="text-2xl text-gray-600">A list is a collection of items stored in a single variable</p>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-blue-50 p-6 rounded-lg">
+                <h3 class="text-2xl font-semibold text-blue-600 mb-3">Without Lists 😢</h3>
+                <div class="code-font text-lg text-gray-800 space-y-2">
+                    <div>student1 = "Alice"</div>
+                    <div>student2 = "Bob"</div>
+                    <div>student3 = "Carol"</div>
+                    <div>student4 = "David"</div>
+                    <div>student5 = "Eve"</div>
+                </div>
+            </div>
+
+            <div class="bg-green-50 p-6 rounded-lg">
+                <h3 class="text-2xl font-semibold text-green-600 mb-3">With Lists 🎉</h3>
+                <div class="code-font text-lg text-gray-800 space-y-2">
+                    <div>students = [</div>
+                    <div class="ml-4">"Alice", "Bob",</div>
+                    <div class="ml-4">"Carol", "David",</div>
+                    <div class="ml-4">"Eve"</div>
+                    <div>]</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-blue-600 text-white p-8 rounded-lg text-center">
+            <p class="text-3xl font-bold">Lists make managing multiple items easy!</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Why Use Lists? -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Why Use Lists? 🤔</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="grid grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-4xl mb-4">🗂️</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Organization</h3>
+            <p class="text-xl text-gray-600">Keep related data together in one place</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-4xl mb-4">📊</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Flexibility</h3>
+            <p class="text-xl text-gray-600">Add, remove, or modify items anytime</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-4xl mb-4">🔄</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Iteration</h3>
+            <p class="text-xl text-gray-600">Process all items with loops easily</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-4xl mb-4">💾</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Efficiency</h3>
+            <p class="text-xl text-gray-600">Work with any number of items</p>
+        </div>
+    </div>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mt-8">
+        <p class="text-2xl text-gray-700">
+            <span class="font-semibold">Real-world examples:</span> Shopping lists, student grades, to-do tasks, product inventory
+        </p>
+    </div>
+</div>
+
+<!-- Slide 4: Creating Lists -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Creating Lists ✨</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Empty List</h3>
+            <div class="code-font text-xl text-gray-800">
+                empty = []
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">List of Numbers</h3>
+            <div class="code-font text-xl text-gray-800">
+                scores = [85, 92, 78, 95, 88]
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">List of Strings</h3>
+            <div class="code-font text-xl text-gray-800">
+                fruits = ["apple", "banana", "orange", "mango"]
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Mixed Types (Possible but not recommended)</h3>
+            <div class="code-font text-xl text-gray-800">
+                mixed = ["Alice", 25, True, 3.14]
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Accessing Elements - Indexing -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Accessing Elements 🎯</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Each item in a list has an index (position number)</p>
+
+        <div class="bg-white border-2 border-blue-200 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-gray-700 mb-4">Positive Indices (from start)</h3>
+            <div class="flex justify-around items-center mb-4">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-600">0</div>
+                    <div class="code-font text-xl">"apple"</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-600">1</div>
+                    <div class="code-font text-xl">"banana"</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-600">2</div>
+                    <div class="code-font text-xl">"cherry"</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-600">3</div>
+                    <div class="code-font text-xl">"date"</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Examples:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana", "cherry", "date"]</div>
+                <div>print(fruits[0]) → "apple"</div>
+                <div>print(fruits[2]) → "cherry"</div>
+            </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+            <p class="text-xl text-gray-700">
+                <span class="font-semibold">⚠️ Important:</span> Python lists start at index 0, not 1!
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: Negative Indices -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Negative Indices ⬅️</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Access items from the end of the list using negative numbers</p>
+
+        <div class="bg-white border-2 border-blue-200 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-gray-700 mb-4">Negative Indices (from end)</h3>
+            <div class="flex justify-around items-center mb-4">
+                <div class="text-center">
+                    <div class="code-font text-xl">"apple"</div>
+                    <div class="text-3xl font-bold text-red-600">-4</div>
+                </div>
+                <div class="text-center">
+                    <div class="code-font text-xl">"banana"</div>
+                    <div class="text-3xl font-bold text-red-600">-3</div>
+                </div>
+                <div class="text-center">
+                    <div class="code-font text-xl">"cherry"</div>
+                    <div class="text-3xl font-bold text-red-600">-2</div>
+                </div>
+                <div class="text-center">
+                    <div class="code-font text-xl">"date"</div>
+                    <div class="text-3xl font-bold text-red-600">-1</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Examples:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana", "cherry", "date"]</div>
+                <div>print(fruits[-1]) → "date" <span class="text-gray-500"># Last item</span></div>
+                <div>print(fruits[-2]) → "cherry" <span class="text-gray-500"># Second to last</span></div>
+            </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-400 p-6">
+            <p class="text-2xl text-gray-700">
+                <span class="font-semibold">💡 Tip:</span> Use -1 to always get the last item!
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Slicing Lists -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Slicing Lists ✂️</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Extract a portion of a list using [start:end]</p>
+
+        <div class="bg-white border-2 border-blue-200 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-gray-700 mb-3">Syntax: list[start:end]</h3>
+            <div class="code-font text-xl text-gray-800">
+                numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="code-font text-lg text-gray-800">numbers[2:5]</div>
+                <div class="text-lg text-gray-600">→ [2, 3, 4]</div>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="code-font text-lg text-gray-800">numbers[:3]</div>
+                <div class="text-lg text-gray-600">→ [0, 1, 2]</div>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="code-font text-lg text-gray-800">numbers[5:]</div>
+                <div class="text-lg text-gray-600">→ [5, 6, 7, 8, 9]</div>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="code-font text-lg text-gray-800">numbers[-3:]</div>
+                <div class="text-lg text-gray-600">→ [7, 8, 9]</div>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="code-font text-lg text-gray-800">numbers[::2]</div>
+                <div class="text-lg text-gray-600">→ [0, 2, 4, 6, 8]</div>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="code-font text-lg text-gray-800">numbers[::-1]</div>
+                <div class="text-lg text-gray-600">→ Reversed list</div>
+            </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+            <p class="text-xl text-gray-700">
+                <span class="font-semibold">Note:</span> End index is NOT included in the slice
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: List Methods - Adding Items -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Adding Items ➕</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">append() - Add to end</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana"]</div>
+                <div>fruits.append("orange")</div>
+                <div class="text-gray-600"># → ["apple", "banana", "orange"]</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">insert() - Add at specific position</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana"]</div>
+                <div>fruits.insert(1, "mango")</div>
+                <div class="text-gray-600"># → ["apple", "mango", "banana"]</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">extend() - Add multiple items</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana"]</div>
+                <div>fruits.extend(["orange", "grape"])</div>
+                <div class="text-gray-600"># → ["apple", "banana", "orange", "grape"]</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: List Methods - Removing Items -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Removing Items ➖</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-white border-2 border-blue-200 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">remove() - Remove by value</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana", "orange"]</div>
+                <div>fruits.remove("banana")</div>
+                <div class="text-gray-600"># → ["apple", "orange"]</div>
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">pop() - Remove by index (returns item)</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana", "orange"]</div>
+                <div>last = fruits.pop() <span class="text-gray-600"># Removes & returns last item</span></div>
+                <div>first = fruits.pop(0) <span class="text-gray-600"># Removes & returns at index 0</span></div>
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">clear() - Remove all items</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana", "orange"]</div>
+                <div>fruits.clear()</div>
+                <div class="text-gray-600"># → []</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: List Methods - Organizing -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Organizing Lists 📊</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">sort() - Sort in place</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>numbers = [3, 1, 4, 1, 5, 9, 2]</div>
+                <div>numbers.sort() <span class="text-gray-600"># → [1, 1, 2, 3, 4, 5, 9]</span></div>
+                <div>numbers.sort(reverse=True) <span class="text-gray-600"># → [9, 5, 4, 3, 2, 1, 1]</span></div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">reverse() - Reverse the order</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana", "cherry"]</div>
+                <div>fruits.reverse()</div>
+                <div class="text-gray-600"># → ["cherry", "banana", "apple"]</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">sorted() - Return sorted copy (doesn't modify original)</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>numbers = [3, 1, 4, 1, 5]</div>
+                <div>sorted_nums = sorted(numbers)</div>
+                <div class="text-gray-600"># numbers stays [3, 1, 4, 1, 5]</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: List Methods - Information -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Getting Information ℹ️</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-white border-2 border-blue-200 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">len() - Get list length</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana", "orange"]</div>
+                <div>print(len(fruits)) → 3</div>
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">count() - Count occurrences</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>numbers = [1, 2, 2, 3, 2, 4]</div>
+                <div>print(numbers.count(2)) → 3</div>
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">index() - Find position</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana", "orange"]</div>
+                <div>print(fruits.index("banana")) → 1</div>
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">in operator - Check membership</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana", "orange"]</div>
+                <div>print("apple" in fruits) → True</div>
+                <div>print("grape" in fruits) → False</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 12: Iterating Through Lists -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Iterating Through Lists 🔄</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Use for loops to process each item</p>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Basic Loop</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana", "orange"]</div>
+                <div></div>
+                <div><span class="text-blue-600">for</span> fruit <span class="text-blue-600">in</span> fruits:</div>
+                <div class="ml-8">print(fruit)</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Loop with Index</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana", "orange"]</div>
+                <div></div>
+                <div><span class="text-blue-600">for</span> i <span class="text-blue-600">in</span> range(len(fruits)):</div>
+                <div class="ml-8">print(f"Item {i}: {fruits[i]}")</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Loop with enumerate()</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>fruits = ["apple", "banana", "orange"]</div>
+                <div></div>
+                <div><span class="text-blue-600">for</span> index, fruit <span class="text-blue-600">in</span> enumerate(fruits):</div>
+                <div class="ml-8">print(f"{index}: {fruit}")</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 13: List Operations -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">List Operations 🔧</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-white border-2 border-blue-200 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Concatenation (+)</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>list1 = [1, 2, 3]</div>
+                <div>list2 = [4, 5, 6]</div>
+                <div>combined = list1 + list2</div>
+                <div class="text-gray-600"># → [1, 2, 3, 4, 5, 6]</div>
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Repetition (*)</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>zeros = [0] * 5</div>
+                <div class="text-gray-600"># → [0, 0, 0, 0, 0]</div>
+                <div></div>
+                <div>pattern = ["A", "B"] * 3</div>
+                <div class="text-gray-600"># → ["A", "B", "A", "B", "A", "B"]</div>
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Useful Functions</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>numbers = [3, 1, 4, 1, 5, 9]</div>
+                <div>print(max(numbers)) → 9</div>
+                <div>print(min(numbers)) → 1</div>
+                <div>print(sum(numbers)) → 23</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 14: List Comprehensions -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">List Comprehensions 🚀</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Create lists in a single, elegant line</p>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Traditional Way</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>squares = []</div>
+                <div><span class="text-blue-600">for</span> i <span class="text-blue-600">in</span> range(1, 6):</div>
+                <div class="ml-8">squares.append(i ** 2)</div>
+                <div class="text-gray-600"># → [1, 4, 9, 16, 25]</div>
+            </div>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-green-600 mb-3">List Comprehension Way</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>squares = [i ** 2 <span class="text-blue-600">for</span> i <span class="text-blue-600">in</span> range(1, 6)]</div>
+                <div class="text-gray-600"># → [1, 4, 9, 16, 25]</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">With Condition</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>evens = [i <span class="text-blue-600">for</span> i <span class="text-blue-600">in</span> range(10) <span class="text-blue-600">if</span> i % 2 == 0]</div>
+                <div class="text-gray-600"># → [0, 2, 4, 6, 8]</div>
+            </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-400 p-4">
+            <p class="text-xl text-gray-700">
+                <span class="font-semibold">💡 Benefits:</span> More concise, faster, and Pythonic!
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 15: Real-World Example 1 -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Real-World: Grade Manager 📚</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-8"></div>
+
+    <div class="bg-white p-8 rounded-lg shadow-lg">
+        <div class="code-font text-lg text-gray-800 space-y-2">
+            <div><span class="text-gray-500"># Student grade management system</span></div>
+            <div>grades = []</div>
+            <div></div>
+            <div><span class="text-gray-500"># Collect grades</span></div>
+            <div><span class="text-blue-600">for</span> i <span class="text-blue-600">in</span> range(5):</div>
+            <div class="ml-8">grade = float(input(f"Enter grade {i+1}: "))</div>
+            <div class="ml-8">grades.append(grade)</div>
+            <div></div>
+            <div><span class="text-gray-500"># Calculate statistics</span></div>
+            <div>average = sum(grades) / len(grades)</div>
+            <div>highest = max(grades)</div>
+            <div>lowest = min(grades)</div>
+            <div></div>
+            <div>print(f"Average: {average:.2f}")</div>
+            <div>print(f"Highest: {highest}")</div>
+            <div>print(f"Lowest: {lowest}")</div>
+            <div>print(f"Passed (≥60): {len([g <span class="text-blue-600">for</span> g <span class="text-blue-600">in</span> grades <span class="text-blue-600">if</span> g >= 60])}")</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 16: Real-World Example 2 -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Real-World: Shopping Cart 🛒</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-8"></div>
+
+    <div class="bg-white border-2 border-blue-200 p-8 rounded-lg">
+        <div class="code-font text-lg text-gray-800 space-y-2">
+            <div><span class="text-gray-500"># Simple shopping cart</span></div>
+            <div>cart = []</div>
+            <div>prices = []</div>
+            <div></div>
+            <div><span class="text-blue-600">while</span> True:</div>
+            <div class="ml-8">item = input("Add item (or 'done'): ")</div>
+            <div class="ml-8"><span class="text-blue-600">if</span> item == 'done':</div>
+            <div class="ml-12"><span class="text-blue-600">break</span></div>
+            <div class="ml-8"></div>
+            <div class="ml-8">price = float(input("Price: $"))</div>
+            <div class="ml-8">cart.append(item)</div>
+            <div class="ml-8">prices.append(price)</div>
+            <div></div>
+            <div>print("\n--- Shopping Cart ---")</div>
+            <div><span class="text-blue-600">for</span> i, item <span class="text-blue-600">in</span> enumerate(cart):</div>
+            <div class="ml-8">print(f"{i+1}. {item}: ${prices[i]:.2f}")</div>
+            <div></div>
+            <div>print(f"\nTotal: ${sum(prices):.2f}")</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 17: Common Patterns -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Common List Patterns 💡</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-8"></div>
+
+    <div class="space-y-4">
+        <div class="bg-white p-5 rounded-lg shadow">
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Copy a List</h3>
+            <div class="code-font text-lg text-gray-800">new_list = old_list.copy()</div>
+        </div>
+
+        <div class="bg-white p-5 rounded-lg shadow">
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Filter Items</h3>
+            <div class="code-font text-lg text-gray-800">filtered = [x for x in numbers if x &gt; 10]</div>
+        </div>
+
+        <div class="bg-white p-5 rounded-lg shadow">
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Transform Items</h3>
+            <div class="code-font text-lg text-gray-800">doubled = [x * 2 for x in numbers]</div>
+        </div>
+
+        <div class="bg-white p-5 rounded-lg shadow">
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Remove Duplicates</h3>
+            <div class="code-font text-lg text-gray-800">unique = list(set(my_list))</div>
+        </div>
+
+        <div class="bg-white p-5 rounded-lg shadow">
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Check if Empty</h3>
+            <div class="code-font text-lg text-gray-800">if not my_list:</div>
+        </div>
+
+        <div class="bg-white p-5 rounded-lg shadow">
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Join to String</h3>
+            <div class="code-font text-lg text-gray-800">text = ", ".join(fruits)</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 18: Best Practices -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Best Practices ⭐</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-green-50 border-l-4 border-green-400 p-6">
+            <h3 class="text-2xl font-semibold text-green-700 mb-2">✓ DO</h3>
+            <ul class="text-xl text-gray-700 space-y-2 ml-6">
+                <li>• Use descriptive plural names: students, prices, items</li>
+                <li>• Use list comprehensions for simple transformations</li>
+                <li>• Use in operator to check membership</li>
+                <li>• Use enumerate() when you need index and value</li>
+            </ul>
+        </div>
+
+        <div class="bg-red-50 border-l-4 border-red-400 p-6">
+            <h3 class="text-2xl font-semibold text-red-700 mb-2">✗ DON'T</h3>
+            <ul class="text-xl text-gray-700 space-y-2 ml-6">
+                <li>• Modify a list while iterating over it</li>
+                <li>• Use list as a variable name (it's a built-in)</li>
+                <li>• Mix different types unnecessarily</li>
+                <li>• Forget that lists are zero-indexed</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 19: Practice Time! -->
+<div class="slide bg-gradient-to-br from-blue-600 to-blue-400 flex flex-col items-center justify-center text-white">
+    <div class="text-center">
+        <svg class="w-32 h-32 mx-auto mb-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+        </svg>
+        <h1 class="text-6xl font-bold mb-6">Time to Practice!</h1>
+        <p class="text-3xl mb-8">Open the practice notebook and master lists</p>
+        <div class="w-32 h-1 bg-white mx-auto mb-8"></div>
+        <p class="text-2xl">Lists are powerful - let's build amazing things!</p>
+    </div>
+</div>
+
+</body>
+</html>
