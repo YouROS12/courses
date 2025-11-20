@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 9: File I/O - Reading and Writing Files</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        .code-font {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col items-center justify-center">
+    <div class="absolute top-10 right-10 w-32 h-32 rounded-full bg-blue-100 opacity-50"></div>
+    <div class="absolute bottom-10 left-10 w-24 h-24 rounded-full bg-blue-200 opacity-30"></div>
+
+    <div class="text-center z-10">
+        <div class="mb-6">
+            <svg class="w-24 h-24 mx-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+        </div>
+        <h1 class="text-6xl font-bold text-gray-800 mb-4">Chapter 9</h1>
+        <h2 class="text-4xl font-semibold text-blue-600 mb-6">File I/O - Reading and Writing Files</h2>
+        <div class="w-32 h-1 bg-blue-600 mx-auto mb-6"></div>
+        <p class="text-2xl text-gray-600">Making Your Data Permanent</p>
+    </div>
+
+    <div class="absolute bottom-0 w-full h-2 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-400"></div>
+</div>
+
+<!-- Slide 2: Why Work with Files? -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Why Work with Files?</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Files give your programs <span class="font-semibold text-blue-600">memory</span> - data that survives after the program ends!</p>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-red-50 p-6 rounded-lg shadow-md">
+                <h3 class="text-2xl font-semibold text-red-600 mb-4">Without Files:</h3>
+                <ul class="text-xl text-gray-700 space-y-2">
+                    <li>❌ Data lost when program closes</li>
+                    <li>❌ Can't save user settings</li>
+                    <li>❌ No way to share data</li>
+                    <li>❌ Must re-enter everything</li>
+                </ul>
+            </div>
+
+            <div class="bg-green-50 p-6 rounded-lg shadow-md">
+                <h3 class="text-2xl font-semibold text-green-600 mb-4">With Files:</h3>
+                <ul class="text-xl text-gray-700 space-y-2">
+                    <li>✓ Data persists forever</li>
+                    <li>✓ Save and load settings</li>
+                    <li>✓ Share with other programs</li>
+                    <li>✓ Build real applications!</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Real-World Examples:</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="text-xl text-gray-700">📝 Note-taking apps</div>
+                <div class="text-xl text-gray-700">📊 Saving game progress</div>
+                <div class="text-xl text-gray-700">📇 Contact managers</div>
+                <div class="text-xl text-gray-700">📈 Data analysis</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Opening and Closing Files -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Opening and Closing Files</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Basic File Operations:</h3>
+            <div class="code-font text-2xl text-gray-800 space-y-3">
+                <div class="text-gray-500"># Opening a file</div>
+                <div>file = open(<span class="text-green-600">"myfile.txt"</span>, <span class="text-green-600">"r"</span>)  <span class="text-gray-500"># "r" = read mode</span></div>
+                <div></div>
+                <div class="text-gray-500"># Do something with the file</div>
+                <div>content = file.read()</div>
+                <div></div>
+                <div class="text-gray-500"># Always close when done!</div>
+                <div>file.close()</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">File Modes:</h3>
+            <div class="grid grid-cols-2 gap-4 text-xl">
+                <div class="bg-white p-4 rounded"><span class="code-font font-bold">"r"</span> - Read (default)</div>
+                <div class="bg-white p-4 rounded"><span class="code-font font-bold">"w"</span> - Write (overwrites!)</div>
+                <div class="bg-white p-4 rounded"><span class="code-font font-bold">"a"</span> - Append (adds to end)</div>
+                <div class="bg-white p-4 rounded"><span class="code-font font-bold">"r+"</span> - Read and Write</div>
+            </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6">
+            <p class="text-2xl text-gray-700">
+                <span class="font-semibold">Important:</span> Always close files when done! But there's a better way...
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Reading Files -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Reading Files</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-5">
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">read() - Read Entire File:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>file = open(<span class="text-green-600">"story.txt"</span>, <span class="text-green-600">"r"</span>)</div>
+                <div>content = file.read()  <span class="text-gray-500"># All text as one string</span></div>
+                <div>file.close()</div>
+            </div>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-green-600 mb-3">readline() - Read One Line:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>file = open(<span class="text-green-600">"data.txt"</span>, <span class="text-green-600">"r"</span>)</div>
+                <div>line1 = file.readline()  <span class="text-gray-500"># First line</span></div>
+                <div>line2 = file.readline()  <span class="text-gray-500"># Second line</span></div>
+                <div>file.close()</div>
+            </div>
+        </div>
+
+        <div class="bg-purple-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-purple-600 mb-3">readlines() - Read All Lines as List:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>file = open(<span class="text-green-600">"names.txt"</span>, <span class="text-green-600">"r"</span>)</div>
+                <div>lines = file.readlines()  <span class="text-gray-500"># List of lines</span></div>
+                <div>file.close()</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Writing and Appending -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Writing and Appending to Files</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Write Mode ("w") - Overwrites File:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>file = open(<span class="text-green-600">"output.txt"</span>, <span class="text-green-600">"w"</span>)</div>
+                <div>file.write(<span class="text-green-600">"Hello, World!\n"</span>)</div>
+                <div>file.write(<span class="text-green-600">"Python is awesome!"</span>)</div>
+                <div>file.close()</div>
+            </div>
+        </div>
+
+        <div class="bg-green-50 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-green-600 mb-4">Append Mode ("a") - Adds to End:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>file = open(<span class="text-green-600">"log.txt"</span>, <span class="text-green-600">"a"</span>)</div>
+                <div>file.write(<span class="text-green-600">"New log entry\n"</span>)</div>
+                <div>file.close()  <span class="text-gray-500"># Keeps existing content!</span></div>
+            </div>
+        </div>
+
+        <div class="bg-red-50 border-l-4 border-red-400 p-6">
+            <p class="text-2xl text-gray-700">
+                <span class="font-semibold">Warning:</span> "w" mode erases the file! Use "a" to preserve content.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: The 'with' Statement (Best Practice!) -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">The 'with' Statement (Best Practice!)</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">The <span class="code-font font-semibold text-blue-600">with</span> statement automatically closes files - even if errors occur!</p>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-red-50 p-6 rounded-lg">
+                <h3 class="text-2xl font-semibold text-red-600 mb-4">Old Way:</h3>
+                <div class="code-font text-lg text-gray-800 space-y-2">
+                    <div>file = open(<span class="text-green-600">"data.txt"</span>)</div>
+                    <div>content = file.read()</div>
+                    <div>file.close()  <span class="text-gray-500"># Must remember!</span></div>
+                    <div></div>
+                    <div class="text-red-600"># If error occurs,</div>
+                    <div class="text-red-600"># file stays open!</div>
+                </div>
+            </div>
+
+            <div class="bg-green-50 p-6 rounded-lg">
+                <h3 class="text-2xl font-semibold text-green-600 mb-4">Better Way:</h3>
+                <div class="code-font text-lg text-gray-800 space-y-2">
+                    <div>with open(<span class="text-green-600">"data.txt"</span>) as file:</div>
+                    <div>    content = file.read()</div>
+                    <div>    <span class="text-gray-500"># Use file here</span></div>
+                    <div></div>
+                    <div class="text-green-600"># File automatically</div>
+                    <div class="text-green-600"># closed here!</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-blue-600 text-white p-6 rounded-lg text-center">
+            <p class="text-2xl font-semibold">Always use 'with' when working with files!</p>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Example:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>with open(<span class="text-green-600">"names.txt"</span>, <span class="text-green-600">"r"</span>) as file:</div>
+                <div>    names = file.read()</div>
+                <div>    print(names)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: File Paths -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">File Paths: Absolute vs Relative</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Relative Path (from current folder):</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div class="text-gray-500"># File in same folder</div>
+                <div>open(<span class="text-green-600">"data.txt"</span>)</div>
+                <div></div>
+                <div class="text-gray-500"># File in subfolder</div>
+                <div>open(<span class="text-green-600">"files/data.txt"</span>)</div>
+                <div></div>
+                <div class="text-gray-500"># File in parent folder</div>
+                <div>open(<span class="text-green-600">"../data.txt"</span>)</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Absolute Path (complete location):</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div class="text-gray-500"># Windows</div>
+                <div>open(<span class="text-green-600">"C:/Users/Name/Documents/data.txt"</span>)</div>
+                <div></div>
+                <div class="text-gray-500"># Mac/Linux</div>
+                <div>open(<span class="text-green-600">"/home/user/documents/data.txt"</span>)</div>
+            </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6">
+            <p class="text-xl text-gray-700">
+                <span class="font-semibold">Tip:</span> Use relative paths for portable code!
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Working with CSV Files -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Working with CSV Files</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">CSV (Comma-Separated Values) - perfect for spreadsheet data!</p>
+
+        <div class="bg-gray-100 p-6 rounded-lg">
+            <h3 class="text-xl font-semibold text-gray-600 mb-3">Sample CSV File (students.csv):</h3>
+            <div class="code-font text-lg text-gray-800 space-y-1">
+                <div>Name,Age,Grade</div>
+                <div>Alice,20,A</div>
+                <div>Bob,19,B</div>
+                <div>Carol,21,A</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-blue-50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-blue-600 mb-3">Reading CSV:</h3>
+                <div class="code-font text-lg text-gray-800 space-y-2">
+                    <div>import csv</div>
+                    <div></div>
+                    <div>with open(<span class="text-green-600">"data.csv"</span>) as f:</div>
+                    <div>    reader = csv.reader(f)</div>
+                    <div>    for row in reader:</div>
+                    <div>        print(row)</div>
+                </div>
+            </div>
+
+            <div class="bg-green-50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-green-600 mb-3">Writing CSV:</h3>
+                <div class="code-font text-lg text-gray-800 space-y-2">
+                    <div>import csv</div>
+                    <div></div>
+                    <div>with open(<span class="text-green-600">"out.csv"</span>, <span class="text-green-600">"w"</span>) as f:</div>
+                    <div>    writer = csv.writer(f)</div>
+                    <div>    writer.writerow([...])</div>
+                    <div>    writer.writerow([...])</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: Working with JSON Files -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Working with JSON Files</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">JSON - perfect for storing dictionaries and structured data!</p>
+
+        <div class="bg-gray-100 p-6 rounded-lg">
+            <h3 class="text-xl font-semibold text-gray-600 mb-3">Sample JSON (config.json):</h3>
+            <div class="code-font text-lg text-gray-800 space-y-1">
+                <div>{</div>
+                <div>  "username": "alice",</div>
+                <div>  "theme": "dark",</div>
+                <div>  "score": 1250</div>
+                <div>}</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-blue-50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-blue-600 mb-3">Reading JSON:</h3>
+                <div class="code-font text-lg text-gray-800 space-y-2">
+                    <div>import json</div>
+                    <div></div>
+                    <div>with open(<span class="text-green-600">"data.json"</span>) as f:</div>
+                    <div>    data = json.load(f)</div>
+                    <div></div>
+                    <div>print(data[<span class="text-green-600">"username"</span>])</div>
+                </div>
+            </div>
+
+            <div class="bg-green-50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-green-600 mb-3">Writing JSON:</h3>
+                <div class="code-font text-lg text-gray-800 space-y-2">
+                    <div>import json</div>
+                    <div></div>
+                    <div>data = {<span class="text-green-600">"name"</span>: <span class="text-green-600">"Alice"</span>}</div>
+                    <div></div>
+                    <div>with open(<span class="text-green-600">"out.json"</span>, <span class="text-green-600">"w"</span>) as f:</div>
+                    <div>    json.dump(data, f)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: Using the datetime Module -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Using datetime for Timestamps</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Add timestamps to your log files and data!</p>
+
+        <div class="bg-blue-50 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Getting Current Date/Time:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-3">
+                <div>from datetime import datetime</div>
+                <div></div>
+                <div>now = datetime.now()</div>
+                <div>print(now)  <span class="text-gray-500"># 2024-11-19 14:30:25.123456</span></div>
+                <div></div>
+                <div class="text-gray-500"># Formatted timestamp</div>
+                <div>timestamp = now.strftime(<span class="text-green-600">"%Y-%m-%d %H:%M:%S"</span>)</div>
+                <div>print(timestamp)  <span class="text-gray-500"># 2024-11-19 14:30:25</span></div>
+            </div>
+        </div>
+
+        <div class="bg-green-50 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-green-600 mb-4">Writing Timestamped Logs:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-3">
+                <div>from datetime import datetime</div>
+                <div></div>
+                <div>with open(<span class="text-green-600">"log.txt"</span>, <span class="text-green-600">"a"</span>) as file:</div>
+                <div>    timestamp = datetime.now().strftime(<span class="text-green-600">"%Y-%m-%d %H:%M:%S"</span>)</div>
+                <div>    file.write(<span class="text-green-600">f"<span class="text-blue-600">{timestamp}</span> - User logged in\n"</span>)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: File Error Handling (Preview) -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">File Error Handling</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Files can cause errors - be prepared!</p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-red-200">
+            <h3 class="text-2xl font-semibold text-red-600 mb-4">Common File Errors:</h3>
+            <ul class="text-xl text-gray-700 space-y-2">
+                <li>❌ <span class="code-font">FileNotFoundError</span> - File doesn't exist</li>
+                <li>❌ <span class="code-font">PermissionError</span> - No permission to access</li>
+                <li>❌ <span class="code-font">IsADirectoryError</span> - Tried to open a folder</li>
+            </ul>
+        </div>
+
+        <div class="bg-green-50 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-green-600 mb-4">Basic Error Handling:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-3">
+                <div>try:</div>
+                <div>    with open(<span class="text-green-600">"data.txt"</span>) as file:</div>
+                <div>        content = file.read()</div>
+                <div>except FileNotFoundError:</div>
+                <div>    print(<span class="text-green-600">"File not found!"</span>)</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-600 text-white p-6 rounded-lg text-center">
+            <p class="text-2xl">More about error handling in Chapter 10!</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 12: Key Concepts Summary -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Key Concepts</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="grid grid-cols-2 gap-6">
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-blue-700 mb-3">✓ Use 'with' Statement</h3>
+            <p class="text-lg text-gray-700">Automatically closes files safely</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-green-700 mb-3">✓ Know File Modes</h3>
+            <p class="text-lg text-gray-700">"r" read, "w" write, "a" append</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-purple-700 mb-3">✓ CSV for Tables</h3>
+            <p class="text-lg text-gray-700">Perfect for spreadsheet data</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-yellow-700 mb-3">✓ JSON for Objects</h3>
+            <p class="text-lg text-gray-700">Store dictionaries and configs</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-red-700 mb-3">✓ Add Timestamps</h3>
+            <p class="text-lg text-gray-700">Use datetime for log files</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-indigo-700 mb-3">✓ Handle Errors</h3>
+            <p class="text-lg text-gray-700">Files can fail - be prepared</p>
+        </div>
+    </div>
+
+    <div class="mt-8 bg-blue-600 text-white p-6 rounded-lg text-center">
+        <p class="text-2xl font-semibold">File I/O makes your programs truly useful!</p>
+    </div>
+</div>
+
+<!-- Slide 13: Practice Time! -->
+<div class="slide bg-gradient-to-br from-blue-600 to-blue-400 flex flex-col items-center justify-center text-white">
+    <div class="text-center">
+        <svg class="w-32 h-32 mx-auto mb-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+        </svg>
+        <h1 class="text-6xl font-bold mb-6">Ready to Code!</h1>
+        <p class="text-3xl mb-8">Open the practice notebook to master file I/O</p>
+        <div class="w-32 h-1 bg-white mx-auto mb-8"></div>
+        <p class="text-2xl">Build apps that remember!</p>
+    </div>
+</div>
+
+</body>
+</html>

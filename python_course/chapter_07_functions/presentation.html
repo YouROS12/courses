@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 7: Functions - Reusable Code</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        .code-font {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col items-center justify-center">
+    <div class="absolute top-10 right-10 w-32 h-32 rounded-full bg-blue-100 opacity-50"></div>
+    <div class="absolute bottom-10 left-10 w-24 h-24 rounded-full bg-blue-200 opacity-30"></div>
+
+    <div class="text-center z-10">
+        <div class="mb-6">
+            <svg class="w-24 h-24 mx-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+        </div>
+        <h1 class="text-6xl font-bold text-gray-800 mb-4">Chapter 7</h1>
+        <h2 class="text-4xl font-semibold text-blue-600 mb-6">Functions - Reusable Code</h2>
+        <div class="w-32 h-1 bg-blue-600 mx-auto mb-6"></div>
+        <p class="text-2xl text-gray-600">Write Once, Use Everywhere</p>
+    </div>
+
+    <div class="absolute bottom-0 w-full h-2 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-400"></div>
+</div>
+
+<!-- Slide 2: Why Functions? -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Why Do We Need Functions? 🤔</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="grid grid-cols-2 gap-6">
+        <div class="bg-blue-50 p-6 rounded-lg shadow-md">
+            <div class="text-4xl mb-4">🔄</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Avoid Repetition</h3>
+            <p class="text-xl text-gray-600">Write code once, use it many times (DRY: Don't Repeat Yourself)</p>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg shadow-md">
+            <div class="text-4xl mb-4">📦</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Organization</h3>
+            <p class="text-xl text-gray-600">Break complex problems into smaller, manageable pieces</p>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg shadow-md">
+            <div class="text-4xl mb-4">🔧</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Reusability</h3>
+            <p class="text-xl text-gray-600">Use the same code in different parts of your program</p>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg shadow-md">
+            <div class="text-4xl mb-4">🧪</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Testing</h3>
+            <p class="text-xl text-gray-600">Easier to test and debug small, focused pieces of code</p>
+        </div>
+    </div>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mt-6">
+        <p class="text-2xl text-gray-700">
+            <span class="font-semibold">DRY Principle:</span> Don't Repeat Yourself - write code once and reuse it!
+        </p>
+    </div>
+</div>
+
+<!-- Slide 3: Defining Functions -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Defining Functions ✨</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Use the <span class="code-font bg-blue-100 px-2 py-1 rounded">def</span> keyword to create a function</p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Basic Syntax:</h3>
+            <div class="code-font text-2xl text-gray-800 space-y-2">
+                <div><span class="text-blue-600">def</span> function_name():</div>
+                <div class="ml-8"><span class="text-gray-500"># Code to execute</span></div>
+                <div class="ml-8">print(<span class="text-green-600">"Hello from the function!"</span>)</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Simple Example:</h3>
+            <div class="code-font text-2xl text-gray-800 space-y-3">
+                <div><span class="text-blue-600">def</span> greet():</div>
+                <div class="ml-8">print(<span class="text-green-600">"Hello, World!"</span>)</div>
+                <div class="ml-8">print(<span class="text-green-600">"Welcome to Python!"</span>)</div>
+                <div></div>
+                <div class="text-gray-500"># Call the function</div>
+                <div>greet()</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Parameters and Arguments -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Parameters and Arguments 📥</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-blue-50 p-6 rounded-lg">
+                <h3 class="text-2xl font-semibold text-blue-600 mb-3">Parameter</h3>
+                <p class="text-xl text-gray-600">Variable in the function definition</p>
+            </div>
+
+            <div class="bg-green-50 p-6 rounded-lg">
+                <h3 class="text-2xl font-semibold text-green-600 mb-3">Argument</h3>
+                <p class="text-xl text-gray-600">Actual value passed when calling</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <h3 class="text-2xl font-semibold text-gray-700 mb-4">Example:</h3>
+            <div class="code-font text-2xl text-gray-800 space-y-3">
+                <div><span class="text-blue-600">def</span> greet(name):</div>
+                <div class="ml-8">print(<span class="text-green-600">f"Hello, <span class="text-blue-600">{name}</span>!"</span>)</div>
+                <div></div>
+                <div class="text-gray-500"># Calling with different arguments</div>
+                <div>greet(<span class="text-green-600">"Alice"</span>)  <span class="text-gray-500"># Hello, Alice!</span></div>
+                <div>greet(<span class="text-green-600">"Bob"</span>)    <span class="text-gray-500"># Hello, Bob!</span></div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Multiple Parameters:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div><span class="text-blue-600">def</span> add(a, b):</div>
+                <div class="ml-8">result = a + b</div>
+                <div class="ml-8">print(<span class="text-green-600">f"<span class="text-blue-600">{a}</span> + <span class="text-blue-600">{b}</span> = <span class="text-blue-600">{result}</span>"</span>)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Return Values -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Return Values 📤</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Functions can <span class="font-semibold">return</span> values back to the caller</p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Without Return:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div><span class="text-blue-600">def</span> add_no_return(a, b):</div>
+                <div class="ml-8">print(a + b)  <span class="text-gray-500"># Just prints</span></div>
+                <div></div>
+                <div>add_no_return(<span class="text-purple-600">5</span>, <span class="text-purple-600">3</span>)  <span class="text-gray-500"># Prints: 8</span></div>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-green-200">
+            <h3 class="text-2xl font-semibold text-green-600 mb-4">With Return:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div><span class="text-blue-600">def</span> add_with_return(a, b):</div>
+                <div class="ml-8"><span class="text-blue-600">return</span> a + b  <span class="text-gray-500"># Returns the value</span></div>
+                <div></div>
+                <div>result = add_with_return(<span class="text-purple-600">5</span>, <span class="text-purple-600">3</span>)</div>
+                <div>print(result)  <span class="text-gray-500"># Prints: 8</span></div>
+                <div>print(result * <span class="text-purple-600">2</span>)  <span class="text-gray-500"># Can use the value! Prints: 16</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: Default Parameters -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Default Parameters 🎯</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Set default values for parameters - optional arguments!</p>
+
+        <div class="bg-blue-50 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Example:</h3>
+            <div class="code-font text-2xl text-gray-800 space-y-3">
+                <div><span class="text-blue-600">def</span> greet(name, greeting=<span class="text-green-600">"Hello"</span>):</div>
+                <div class="ml-8">print(<span class="text-green-600">f"<span class="text-blue-600">{greeting}</span>, <span class="text-blue-600">{name}</span>!"</span>)</div>
+                <div></div>
+                <div class="text-gray-500"># Using default greeting</div>
+                <div>greet(<span class="text-green-600">"Alice"</span>)  <span class="text-gray-500"># Hello, Alice!</span></div>
+                <div></div>
+                <div class="text-gray-500"># Custom greeting</div>
+                <div>greet(<span class="text-green-600">"Bob"</span>, <span class="text-green-600">"Hi"</span>)  <span class="text-gray-500"># Hi, Bob!</span></div>
+            </div>
+        </div>
+
+        <div class="bg-green-50 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-green-600 mb-4">Multiple Defaults:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div><span class="text-blue-600">def</span> order_coffee(size=<span class="text-green-600">"medium"</span>, milk=<span class="text-blue-600">True</span>, sugar=<span class="text-purple-600">1</span>):</div>
+                <div class="ml-8">print(<span class="text-green-600">f"<span class="text-blue-600">{size}</span> coffee, milk: <span class="text-blue-600">{milk}</span>, sugar: <span class="text-blue-600">{sugar}</span>"</span>)</div>
+                <div></div>
+                <div>order_coffee()  <span class="text-gray-500"># Uses all defaults</span></div>
+                <div>order_coffee(<span class="text-green-600">"large"</span>, milk=<span class="text-blue-600">False</span>)  <span class="text-gray-500"># Customize some</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Multiple Return Values -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Multiple Return Values 🎁</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Python functions can return multiple values at once!</p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Returning Multiple Values:</h3>
+            <div class="code-font text-2xl text-gray-800 space-y-3">
+                <div><span class="text-blue-600">def</span> get_stats(numbers):</div>
+                <div class="ml-8">total = sum(numbers)</div>
+                <div class="ml-8">average = total / len(numbers)</div>
+                <div class="ml-8"><span class="text-blue-600">return</span> total, average</div>
+                <div></div>
+                <div class="text-gray-500"># Unpack the returned values</div>
+                <div>sum_val, avg_val = get_stats([<span class="text-purple-600">10</span>, <span class="text-purple-600">20</span>, <span class="text-purple-600">30</span>])</div>
+                <div>print(<span class="text-green-600">f"Sum: <span class="text-blue-600">{sum_val}</span>, Average: <span class="text-blue-600">{avg_val}</span>"</span>)</div>
+            </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6">
+            <p class="text-xl text-gray-700">
+                <span class="font-semibold">Note:</span> Multiple values are returned as a tuple
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Variable Scope -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Variable Scope 🔍</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="grid grid-cols-2 gap-6">
+        <div class="bg-blue-50 p-6 rounded-lg shadow-md">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Local Scope</h3>
+            <p class="text-xl text-gray-600 mb-4">Variables inside a function</p>
+            <div class="code-font text-lg text-gray-800 bg-white p-4 rounded">
+                <div><span class="text-blue-600">def</span> my_function():</div>
+                <div class="ml-4">x = <span class="text-purple-600">10</span>  <span class="text-gray-500"># Local</span></div>
+                <div class="ml-4">print(x)</div>
+                <div></div>
+                <div>my_function()  <span class="text-gray-500"># Works</span></div>
+                <div>print(x)  <span class="text-red-600"># Error!</span></div>
+            </div>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-lg shadow-md">
+            <h3 class="text-2xl font-semibold text-green-600 mb-4">Global Scope</h3>
+            <p class="text-xl text-gray-600 mb-4">Variables outside functions</p>
+            <div class="code-font text-lg text-gray-800 bg-white p-4 rounded">
+                <div>y = <span class="text-purple-600">20</span>  <span class="text-gray-500"># Global</span></div>
+                <div></div>
+                <div><span class="text-blue-600">def</span> my_function():</div>
+                <div class="ml-4">print(y)  <span class="text-gray-500"># Can read</span></div>
+                <div></div>
+                <div>my_function()  <span class="text-gray-500"># Works</span></div>
+                <div>print(y)  <span class="text-gray-500"># Also works</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mt-6">
+        <p class="text-2xl text-gray-700">
+            <span class="font-semibold">Best Practice:</span> Use local variables when possible. Keep functions self-contained!
+        </p>
+    </div>
+</div>
+
+<!-- Slide 9: Docstrings -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Docstrings - Documentation 📚</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Document your functions with docstrings (triple quotes)</p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Good Documentation:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div><span class="text-blue-600">def</span> calculate_area(length, width):</div>
+                <div class="ml-8"><span class="text-green-600">"""</span></div>
+                <div class="ml-8"><span class="text-green-600">Calculate the area of a rectangle.</span></div>
+                <div class="ml-8"></div>
+                <div class="ml-8"><span class="text-green-600">Args:</span></div>
+                <div class="ml-12"><span class="text-green-600">length: The length of the rectangle</span></div>
+                <div class="ml-12"><span class="text-green-600">width: The width of the rectangle</span></div>
+                <div class="ml-8"></div>
+                <div class="ml-8"><span class="text-green-600">Returns:</span></div>
+                <div class="ml-12"><span class="text-green-600">The area of the rectangle</span></div>
+                <div class="ml-8"><span class="text-green-600">"""</span></div>
+                <div class="ml-8"><span class="text-blue-600">return</span> length * width</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-600 text-white p-6 rounded-lg text-center">
+            <p class="text-2xl font-semibold">Good documentation helps others (and future you!) understand your code</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: Lambda Functions -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Lambda Functions ⚡</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6">
+            <p class="text-2xl text-gray-700">
+                <span class="font-semibold">Optional/Advanced:</span> Small, anonymous functions for simple operations
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-blue-50 p-6 rounded-lg">
+                <h3 class="text-2xl font-semibold text-blue-600 mb-4">Regular Function</h3>
+                <div class="code-font text-xl text-gray-800 bg-white p-4 rounded space-y-2">
+                    <div><span class="text-blue-600">def</span> square(x):</div>
+                    <div class="ml-4"><span class="text-blue-600">return</span> x ** <span class="text-purple-600">2</span></div>
+                    <div></div>
+                    <div>result = square(<span class="text-purple-600">5</span>)</div>
+                </div>
+            </div>
+
+            <div class="bg-green-50 p-6 rounded-lg">
+                <h3 class="text-2xl font-semibold text-green-600 mb-4">Lambda Function</h3>
+                <div class="code-font text-xl text-gray-800 bg-white p-4 rounded space-y-2">
+                    <div>square = <span class="text-blue-600">lambda</span> x: x ** <span class="text-purple-600">2</span></div>
+                    <div></div>
+                    <div></div>
+                    <div>result = square(<span class="text-purple-600">5</span>)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Common Use Cases:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div class="text-gray-500"># Sorting with lambda</div>
+                <div>students = [(<span class="text-green-600">"Alice"</span>, <span class="text-purple-600">85</span>), (<span class="text-green-600">"Bob"</span>, <span class="text-purple-600">92</span>), (<span class="text-green-600">"Carol"</span>, <span class="text-purple-600">78</span>)]</div>
+                <div>sorted_students = sorted(students, key=<span class="text-blue-600">lambda</span> x: x[<span class="text-purple-600">1</span>])</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Real-World Example -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Real-World Example 🌍</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="bg-white p-8 rounded-lg shadow-lg">
+        <h3 class="text-3xl font-semibold text-blue-600 mb-6">Temperature Converter</h3>
+        <div class="code-font text-xl text-gray-800 space-y-2">
+            <div><span class="text-blue-600">def</span> celsius_to_fahrenheit(celsius):</div>
+            <div class="ml-8"><span class="text-green-600">"""Convert Celsius to Fahrenheit."""</span></div>
+            <div class="ml-8">fahrenheit = (celsius * <span class="text-purple-600">9</span>/<span class="text-purple-600">5</span>) + <span class="text-purple-600">32</span></div>
+            <div class="ml-8"><span class="text-blue-600">return</span> fahrenheit</div>
+            <div></div>
+            <div><span class="text-blue-600">def</span> fahrenheit_to_celsius(fahrenheit):</div>
+            <div class="ml-8"><span class="text-green-600">"""Convert Fahrenheit to Celsius."""</span></div>
+            <div class="ml-8">celsius = (fahrenheit - <span class="text-purple-600">32</span>) * <span class="text-purple-600">5</span>/<span class="text-purple-600">9</span></div>
+            <div class="ml-8"><span class="text-blue-600">return</span> celsius</div>
+            <div></div>
+            <div class="text-gray-500"># Usage</div>
+            <div>temp_c = <span class="text-purple-600">25</span></div>
+            <div>temp_f = celsius_to_fahrenheit(temp_c)</div>
+            <div>print(<span class="text-green-600">f"<span class="text-blue-600">{temp_c}</span>°C = <span class="text-blue-600">{temp_f}</span>°F"</span>)  <span class="text-gray-500"># 25°C = 77.0°F</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 12: Benefits Recap -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Why Functions Are Powerful 💪</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold text-blue-700 mb-2">✓ Reusable</h3>
+                <p class="text-xl text-gray-700">Write once, use everywhere</p>
+            </div>
+
+            <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold text-green-700 mb-2">✓ Organized</h3>
+                <p class="text-xl text-gray-700">Break complex tasks into pieces</p>
+            </div>
+
+            <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold text-purple-700 mb-2">✓ Testable</h3>
+                <p class="text-xl text-gray-700">Easy to test and debug</p>
+            </div>
+
+            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold text-yellow-700 mb-2">✓ Maintainable</h3>
+                <p class="text-xl text-gray-700">Update in one place</p>
+            </div>
+        </div>
+
+        <div class="bg-blue-600 text-white p-8 rounded-lg text-center">
+            <p class="text-3xl font-bold mb-4">Functions are the building blocks of larger programs!</p>
+            <p class="text-xl">Master functions, and you'll write cleaner, more professional code</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 13: Practice Time! -->
+<div class="slide bg-gradient-to-br from-blue-600 to-blue-400 flex flex-col items-center justify-center text-white">
+    <div class="text-center">
+        <svg class="w-32 h-32 mx-auto mb-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+        </svg>
+        <h1 class="text-6xl font-bold mb-6">Ready to Code!</h1>
+        <p class="text-3xl mb-8">Open the practice notebook and start creating functions</p>
+        <div class="w-32 h-1 bg-white mx-auto mb-8"></div>
+        <p class="text-2xl">Remember: Functions make your code reusable and clean!</p>
+    </div>
+</div>
+
+</body>
+</html>

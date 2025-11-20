@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 6: Dictionaries - Key-Value Pairs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        .code-font {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col items-center justify-center">
+    <div class="absolute top-10 right-10 w-32 h-32 rounded-full bg-blue-100 opacity-50"></div>
+    <div class="absolute bottom-10 left-10 w-24 h-24 rounded-full bg-blue-200 opacity-30"></div>
+
+    <div class="text-center z-10">
+        <div class="mb-6">
+            <svg class="w-24 h-24 mx-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+            </svg>
+        </div>
+        <h1 class="text-6xl font-bold text-gray-800 mb-4">Chapter 6</h1>
+        <h2 class="text-4xl font-semibold text-blue-600 mb-6">Dictionaries - Key-Value Pairs</h2>
+        <div class="w-32 h-1 bg-blue-600 mx-auto mb-6"></div>
+        <p class="text-2xl text-gray-600">Storing Connected Data</p>
+    </div>
+
+    <div class="absolute bottom-0 w-full h-2 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-400"></div>
+</div>
+
+<!-- Slide 2: What Are Dictionaries? -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">What Are Dictionaries? 📖</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-12"></div>
+
+    <div class="space-y-8">
+        <p class="text-2xl text-gray-600">A dictionary stores data as key-value pairs - like a real dictionary!</p>
+
+        <div class="grid grid-cols-2 gap-8">
+            <div class="bg-blue-50 p-8 rounded-lg">
+                <h3 class="text-2xl font-semibold text-blue-600 mb-4">Real Dictionary</h3>
+                <div class="text-xl text-gray-800 space-y-3">
+                    <div><span class="font-semibold">Word:</span> Python</div>
+                    <div><span class="font-semibold">Definition:</span> A programming language</div>
+                    <div class="mt-4 text-gray-600">Word = Key, Definition = Value</div>
+                </div>
+            </div>
+
+            <div class="bg-green-50 p-8 rounded-lg">
+                <h3 class="text-2xl font-semibold text-green-600 mb-4">Python Dictionary</h3>
+                <div class="code-font text-xl text-gray-800 space-y-3">
+                    <div>student = {</div>
+                    <div class="ml-6">"name": "Alice",</div>
+                    <div class="ml-6">"age": 20,</div>
+                    <div class="ml-6">"grade": "A"</div>
+                    <div>}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-blue-600 text-white p-8 rounded-lg text-center">
+            <p class="text-3xl font-bold">Each key maps to a specific value!</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Why Use Dictionaries? -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Why Use Dictionaries? 🤔</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="grid grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-4xl mb-4">🔗</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Connect Related Data</h3>
+            <p class="text-xl text-gray-600">Store attributes that belong together</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-4xl mb-4">🎯</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Fast Lookup</h3>
+            <p class="text-xl text-gray-600">Find values instantly using keys</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-4xl mb-4">📝</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Meaningful Names</h3>
+            <p class="text-xl text-gray-600">Use descriptive keys instead of indices</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-4xl mb-4">🔄</div>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Flexible</h3>
+            <p class="text-xl text-gray-600">Add, modify, or remove data easily</p>
+        </div>
+    </div>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mt-8">
+        <p class="text-2xl text-gray-700">
+            <span class="font-semibold">Real-world examples:</span> Contact information, product details, settings, user profiles
+        </p>
+    </div>
+</div>
+
+<!-- Slide 4: Creating Dictionaries -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Creating Dictionaries ✨</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Empty Dictionary</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>empty = {}</div>
+                <div class="text-gray-600"># or</div>
+                <div>empty = dict()</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Dictionary with Data</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>person = {</div>
+                <div class="ml-8">"name": "Ahmed",</div>
+                <div class="ml-8">"age": 25,</div>
+                <div class="ml-8">"city": "Cairo"</div>
+                <div>}</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Different Value Types</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>student = {</div>
+                <div class="ml-8">"name": "Sarah",  <span class="text-gray-600"># String</span></div>
+                <div class="ml-8">"age": 20,  <span class="text-gray-600"># Integer</span></div>
+                <div class="ml-8">"gpa": 3.8,  <span class="text-gray-600"># Float</span></div>
+                <div class="ml-8">"enrolled": True  <span class="text-gray-600"># Boolean</span></div>
+                <div>}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Accessing Values -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Accessing Values 🔍</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Use keys (not indices) to access values</p>
+
+        <div class="bg-white border-2 border-blue-200 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-gray-700 mb-4">Square Bracket Notation</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>student = {"name": "Ali", "age": 22, "major": "CS"}</div>
+                <div></div>
+                <div>print(student["name"]) → "Ali"</div>
+                <div>print(student["age"]) → 22</div>
+                <div>print(student["major"]) → "CS"</div>
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-gray-700 mb-4">get() Method (Safer)</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>print(student.get("name")) → "Ali"</div>
+                <div>print(student.get("email")) → None <span class="text-gray-600"># No error!</span></div>
+                <div>print(student.get("email", "Not found")) → "Not found"</div>
+            </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+            <p class="text-xl text-gray-700">
+                <span class="font-semibold">💡 Tip:</span> Use get() to avoid errors when key might not exist
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: Modifying Dictionaries -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Modifying Dictionaries 🔧</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Change Existing Value</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>person = {"name": "John", "age": 25}</div>
+                <div>person["age"] = 26</div>
+                <div class="text-gray-600"># → {"name": "John", "age": 26}</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Add New Key-Value Pair</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>person = {"name": "John", "age": 25}</div>
+                <div>person["city"] = "New York"</div>
+                <div class="text-gray-600"># → {"name": "John", "age": 25, "city": "New York"}</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Remove Items</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>del person["age"]  <span class="text-gray-600"># Remove specific key</span></div>
+                <div>removed = person.pop("city")  <span class="text-gray-600"># Remove & return value</span></div>
+                <div>person.clear()  <span class="text-gray-600"># Remove all items</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Dictionary Methods -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Dictionary Methods 🛠️</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-5">
+        <div class="bg-white border-2 border-blue-200 p-5 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-2">keys() - Get all keys</h3>
+            <div class="code-font text-lg text-gray-800">
+                student.keys() → dict_keys(['name', 'age', 'grade'])
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-5 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-2">values() - Get all values</h3>
+            <div class="code-font text-lg text-gray-800">
+                student.values() → dict_values(['Alice', 20, 'A'])
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-5 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-2">items() - Get key-value pairs</h3>
+            <div class="code-font text-lg text-gray-800">
+                student.items() → dict_items([('name', 'Alice'), ('age', 20), ('grade', 'A')])
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-5 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-2">update() - Add multiple items</h3>
+            <div class="code-font text-lg text-gray-800">
+                student.update({"city": "Boston", "major": "CS"})
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-blue-200 p-5 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-2">pop() - Remove and return value</h3>
+            <div class="code-font text-lg text-gray-800">
+                grade = student.pop("grade") → Returns "A" and removes it
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Iterating Through Dictionaries -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Iterating Through Dictionaries 🔄</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Loop Through Keys</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div><span class="text-blue-600">for</span> key <span class="text-blue-600">in</span> student:</div>
+                <div class="ml-8">print(key)</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Loop Through Values</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div><span class="text-blue-600">for</span> value <span class="text-blue-600">in</span> student.values():</div>
+                <div class="ml-8">print(value)</div>
+            </div>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-green-600 mb-3">Loop Through Key-Value Pairs (Best!)</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div><span class="text-blue-600">for</span> key, value <span class="text-blue-600">in</span> student.items():</div>
+                <div class="ml-8">print(f"{key}: {value}")</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: Dictionary vs List -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Dictionary vs List ⚖️</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="grid grid-cols-2 gap-8">
+        <div class="bg-blue-100 p-8 rounded-lg">
+            <h3 class="text-3xl font-semibold text-blue-700 mb-6">Lists 📋</h3>
+            <div class="space-y-4 text-xl text-gray-800">
+                <div>✓ Ordered collection</div>
+                <div>✓ Access by index (position)</div>
+                <div>✓ Use for sequences</div>
+                <div>✓ Allow duplicates</div>
+                <div class="code-font text-lg mt-4">
+                    <div>students = [</div>
+                    <div class="ml-4">"Ali", "Sara",</div>
+                    <div class="ml-4">"Ahmed"</div>
+                    <div>]</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-green-100 p-8 rounded-lg">
+            <h3 class="text-3xl font-semibold text-green-700 mb-6">Dictionaries 📖</h3>
+            <div class="space-y-4 text-xl text-gray-800">
+                <div>✓ Key-value pairs</div>
+                <div>✓ Access by key (name)</div>
+                <div>✓ Use for related data</div>
+                <div>✓ Keys must be unique</div>
+                <div class="code-font text-lg mt-4">
+                    <div>student = {</div>
+                    <div class="ml-4">"name": "Ali",</div>
+                    <div class="ml-4">"age": 20</div>
+                    <div>}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mt-6">
+        <p class="text-2xl text-gray-700">
+            <span class="font-semibold">Use Lists:</span> for ordered items | <span class="font-semibold">Use Dictionaries:</span> for labeled data
+        </p>
+    </div>
+</div>
+
+<!-- Slide 10: Real-World Example -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Real-World: Contact Book 📱</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-8"></div>
+
+    <div class="bg-white border-2 border-blue-200 p-8 rounded-lg">
+        <div class="code-font text-lg text-gray-800 space-y-2">
+            <div><span class="text-gray-500"># Contact book with phone numbers</span></div>
+            <div>contacts = {</div>
+            <div class="ml-8">"Alice": "555-1234",</div>
+            <div class="ml-8">"Bob": "555-5678",</div>
+            <div class="ml-8">"Carol": "555-9012"</div>
+            <div>}</div>
+            <div></div>
+            <div><span class="text-gray-500"># Look up a number</span></div>
+            <div>name = input("Enter name: ")</div>
+            <div></div>
+            <div><span class="text-blue-600">if</span> name <span class="text-blue-600">in</span> contacts:</div>
+            <div class="ml-8">phone = contacts[name]</div>
+            <div class="ml-8">print(f"{name}'s number: {phone}")</div>
+            <div><span class="text-blue-600">else</span>:</div>
+            <div class="ml-8">print("Contact not found!")</div>
+            <div></div>
+            <div><span class="text-gray-500"># Add new contact</span></div>
+            <div>contacts["David"] = "555-3456"</div>
+            <div></div>
+            <div><span class="text-gray-500"># Display all contacts</span></div>
+            <div><span class="text-blue-600">for</span> name, phone <span class="text-blue-600">in</span> contacts.items():</div>
+            <div class="ml-8">print(f"{name}: {phone}")</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Nested Dictionaries -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Nested Dictionaries 🎁</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Dictionaries can contain other dictionaries!</p>
+
+        <div class="bg-white border-2 border-blue-200 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-gray-700 mb-4">Student Records Example</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>students = {</div>
+                <div class="ml-6">"student1": {</div>
+                <div class="ml-12">"name": "Alice",</div>
+                <div class="ml-12">"age": 20,</div>
+                <div class="ml-12">"grades": {"math": 90, "english": 85}</div>
+                <div class="ml-6">},</div>
+                <div class="ml-6">"student2": {</div>
+                <div class="ml-12">"name": "Bob",</div>
+                <div class="ml-12">"age": 21,</div>
+                <div class="ml-12">"grades": {"math": 88, "english": 92}</div>
+                <div class="ml-6">}</div>
+                <div>}</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Accessing Nested Data</h3>
+            <div class="code-font text-xl text-gray-800">
+                print(students["student1"]["name"]) → "Alice"
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 12: Practice Time! -->
+<div class="slide bg-gradient-to-br from-blue-600 to-blue-400 flex flex-col items-center justify-center text-white">
+    <div class="text-center">
+        <svg class="w-32 h-32 mx-auto mb-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+        </svg>
+        <h1 class="text-6xl font-bold mb-6">Time to Practice!</h1>
+        <p class="text-3xl mb-8">Open the practice notebook and master dictionaries</p>
+        <div class="w-32 h-1 bg-white mx-auto mb-8"></div>
+        <p class="text-2xl">Dictionaries unlock powerful data storage!</p>
+    </div>
+</div>
+
+</body>
+</html>

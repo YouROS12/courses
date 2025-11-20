@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 10: Error Handling - Making Programs Robust</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        .code-font {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col items-center justify-center">
+    <div class="absolute top-10 right-10 w-32 h-32 rounded-full bg-blue-100 opacity-50"></div>
+    <div class="absolute bottom-10 left-10 w-24 h-24 rounded-full bg-blue-200 opacity-30"></div>
+
+    <div class="text-center z-10">
+        <div class="mb-6">
+            <svg class="w-24 h-24 mx-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+        </div>
+        <h1 class="text-6xl font-bold text-gray-800 mb-4">Chapter 10</h1>
+        <h2 class="text-4xl font-semibold text-blue-600 mb-6">Error Handling - Making Programs Robust</h2>
+        <div class="w-32 h-1 bg-blue-600 mx-auto mb-6"></div>
+        <p class="text-2xl text-gray-600">When Things Go Wrong (And They Will!)</p>
+    </div>
+
+    <div class="absolute bottom-0 w-full h-2 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-400"></div>
+</div>
+
+<!-- Slide 2: Why Error Handling Matters -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Why Error Handling Matters</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Errors are <span class="font-semibold text-blue-600">inevitable</span> - but crashes are <span class="font-semibold text-red-600">optional</span>!</p>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-red-50 p-6 rounded-lg shadow-md">
+                <h3 class="text-2xl font-semibold text-red-600 mb-4">Without Error Handling:</h3>
+                <ul class="text-xl text-gray-700 space-y-2">
+                    <li>❌ Programs crash unexpectedly</li>
+                    <li>❌ Users see scary error messages</li>
+                    <li>❌ Data might be lost</li>
+                    <li>❌ No way to recover</li>
+                </ul>
+            </div>
+
+            <div class="bg-green-50 p-6 rounded-lg shadow-md">
+                <h3 class="text-2xl font-semibold text-green-600 mb-4">With Error Handling:</h3>
+                <ul class="text-xl text-gray-700 space-y-2">
+                    <li>✓ Programs handle problems gracefully</li>
+                    <li>✓ Users see helpful messages</li>
+                    <li>✓ Data is protected</li>
+                    <li>✓ Program can recover and continue!</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Common Errors You've Seen:</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="text-xl text-gray-700">🔢 Dividing by zero</div>
+                <div class="text-xl text-gray-700">📁 File not found</div>
+                <div class="text-xl text-gray-700">🔤 Invalid type conversion</div>
+                <div class="text-xl text-gray-700">📊 Index out of range</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Common Exception Types -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Common Exception Types</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="grid grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500">
+            <h3 class="text-xl font-bold text-red-600 mb-2 code-font">ValueError</h3>
+            <p class="text-lg text-gray-700 mb-2">Invalid value for conversion</p>
+            <div class="code-font text-sm text-gray-600">int("hello") → ValueError</div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-orange-500">
+            <h3 class="text-xl font-bold text-orange-600 mb-2 code-font">TypeError</h3>
+            <p class="text-lg text-gray-700 mb-2">Wrong type for operation</p>
+            <div class="code-font text-sm text-gray-600">"5" + 3 → TypeError</div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-yellow-500">
+            <h3 class="text-xl font-bold text-yellow-600 mb-2 code-font">ZeroDivisionError</h3>
+            <p class="text-lg text-gray-700 mb-2">Division by zero</p>
+            <div class="code-font text-sm text-gray-600">10 / 0 → ZeroDivisionError</div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-green-500">
+            <h3 class="text-xl font-bold text-green-600 mb-2 code-font">FileNotFoundError</h3>
+            <p class="text-lg text-gray-700 mb-2">File doesn't exist</p>
+            <div class="code-font text-sm text-gray-600">open("missing.txt") → Error</div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+            <h3 class="text-xl font-bold text-blue-600 mb-2 code-font">IndexError</h3>
+            <p class="text-lg text-gray-700 mb-2">List index out of range</p>
+            <div class="code-font text-sm text-gray-600">list[999] → IndexError</div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-purple-500">
+            <h3 class="text-xl font-bold text-purple-600 mb-2 code-font">KeyError</h3>
+            <p class="text-lg text-gray-700 mb-2">Dictionary key not found</p>
+            <div class="code-font text-sm text-gray-600">dict["missing"] → KeyError</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Try-Except Blocks (Basic) -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Try-Except Blocks</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">The <span class="code-font font-semibold text-blue-600">try-except</span> block catches errors and handles them gracefully!</p>
+
+        <div class="bg-red-50 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-red-600 mb-4">Without Try-Except (Crashes):</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>age = int(input(<span class="text-green-600">"Enter age: "</span>))  <span class="text-gray-500"># User types "abc"</span></div>
+                <div>print(<span class="text-green-600">f"Age: <span class="text-blue-600">{age}</span>"</span>)</div>
+                <div></div>
+                <div class="text-red-600"># ValueError: invalid literal for int()</div>
+                <div class="text-red-600"># Program CRASHES!</div>
+            </div>
+        </div>
+
+        <div class="bg-green-50 p-8 rounded-lg">
+            <h3 class="text-2xl font-semibold text-green-600 mb-4">With Try-Except (Handles Error):</h3>
+            <div class="code-font text-xl text-gray-800 space-y-2">
+                <div>try:</div>
+                <div>    age = int(input(<span class="text-green-600">"Enter age: "</span>))</div>
+                <div>    print(<span class="text-green-600">f"Age: <span class="text-blue-600">{age}</span>"</span>)</div>
+                <div>except ValueError:</div>
+                <div>    print(<span class="text-green-600">"Please enter a valid number!"</span>)</div>
+                <div></div>
+                <div class="text-green-600"># Program continues running!</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Multiple Except Blocks -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Multiple Except Blocks</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">Handle different errors differently!</p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <div class="code-font text-xl text-gray-800 space-y-3">
+                <div>try:</div>
+                <div>    number = int(input(<span class="text-green-600">"Enter number: "</span>))</div>
+                <div>    result = 100 / number</div>
+                <div>    print(<span class="text-green-600">f"Result: <span class="text-blue-600">{result}</span>"</span>)</div>
+                <div></div>
+                <div>except ValueError:</div>
+                <div>    print(<span class="text-green-600">"That's not a valid number!"</span>)</div>
+                <div></div>
+                <div>except ZeroDivisionError:</div>
+                <div>    print(<span class="text-green-600">"Cannot divide by zero!"</span>)</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Each Error Gets Custom Message!</h3>
+            <ul class="text-xl text-gray-700 space-y-2">
+                <li>✓ User types "abc" → ValueError caught</li>
+                <li>✓ User types "0" → ZeroDivisionError caught</li>
+                <li>✓ User types "5" → Success!</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: The else Clause -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">The else Clause</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">The <span class="code-font font-semibold text-blue-600">else</span> block runs <span class="font-semibold">only if NO exception occurred!</span></p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <div class="code-font text-xl text-gray-800 space-y-3">
+                <div>try:</div>
+                <div>    age = int(input(<span class="text-green-600">"Enter age: "</span>))</div>
+                <div></div>
+                <div>except ValueError:</div>
+                <div>    print(<span class="text-green-600">"Invalid input!"</span>)</div>
+                <div></div>
+                <div>else:</div>
+                <div>    <span class="text-gray-500"># This runs ONLY if no error occurred</span></div>
+                <div>    print(<span class="text-green-600">f"Great! You're <span class="text-blue-600">{age}</span> years old."</span>)</div>
+                <div>    print(<span class="text-green-600">"Data saved successfully!"</span>)</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-red-50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-red-600 mb-3">If Error Occurs:</h3>
+                <p class="text-lg text-gray-700">❌ Try block stops<br>✓ Except block runs<br>❌ Else block skipped</p>
+            </div>
+            <div class="bg-green-50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-green-600 mb-3">If No Error:</h3>
+                <p class="text-lg text-gray-700">✓ Try block completes<br>❌ Except block skipped<br>✓ Else block runs</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: The finally Clause -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">The finally Clause</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">The <span class="code-font font-semibold text-blue-600">finally</span> block <span class="font-semibold">ALWAYS runs</span> - error or not!</p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <div class="code-font text-xl text-gray-800 space-y-3">
+                <div>try:</div>
+                <div>    file = open(<span class="text-green-600">"data.txt"</span>, <span class="text-green-600">"r"</span>)</div>
+                <div>    data = file.read()</div>
+                <div>    process_data(data)</div>
+                <div></div>
+                <div>except FileNotFoundError:</div>
+                <div>    print(<span class="text-green-600">"File not found!"</span>)</div>
+                <div></div>
+                <div>finally:</div>
+                <div>    <span class="text-gray-500"># This ALWAYS runs!</span></div>
+                <div>    print(<span class="text-green-600">"Cleaning up resources..."</span>)</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">Perfect For:</h3>
+            <div class="grid grid-cols-2 gap-4 text-xl text-gray-700">
+                <div>✓ Closing files</div>
+                <div>✓ Releasing locks</div>
+                <div>✓ Cleanup operations</div>
+                <div>✓ Logging</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Raising Exceptions -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Raising Exceptions</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <p class="text-2xl text-gray-600">You can <span class="code-font font-semibold text-blue-600">raise</span> your own exceptions when something is wrong!</p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-4">Basic Syntax:</h3>
+            <div class="code-font text-xl text-gray-800 space-y-3">
+                <div>def calculate_discount(price, discount_percent):</div>
+                <div>    if discount_percent < 0 or discount_percent > 100:</div>
+                <div>        raise ValueError(<span class="text-green-600">"Discount must be 0-100"</span>)</div>
+                <div>    </div>
+                <div>    discount = price * (discount_percent / 100)</div>
+                <div>    return price - discount</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-green-50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-green-600 mb-3">Valid Input:</h3>
+                <div class="code-font text-lg text-gray-800">
+                    <div>result = calculate_discount(</div>
+                    <div>    100, 20)</div>
+                    <div class="text-green-600"># Returns: 80.0</div>
+                </div>
+            </div>
+            <div class="bg-red-50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-red-600 mb-3">Invalid Input:</h3>
+                <div class="code-font text-lg text-gray-800">
+                    <div>result = calculate_discount(</div>
+                    <div>    100, 150)</div>
+                    <div class="text-red-600"># ValueError raised!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: Best Practices -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Best Practices for Error Handling</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-5">
+        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+            <h3 class="text-2xl font-bold text-green-700 mb-2">✓ DO: Catch Specific Exceptions</h3>
+            <div class="code-font text-lg text-gray-800">except ValueError:  <span class="text-gray-500"># Good!</span></div>
+        </div>
+
+        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+            <h3 class="text-2xl font-bold text-red-700 mb-2">✗ DON'T: Use Bare Except</h3>
+            <div class="code-font text-lg text-gray-800">except:  <span class="text-gray-500"># Too broad!</span></div>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+            <h3 class="text-2xl font-bold text-green-700 mb-2">✓ DO: Provide Helpful Messages</h3>
+            <div class="code-font text-lg text-gray-800">print(<span class="text-green-600">"Please enter a number between 1 and 100"</span>)</div>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+            <h3 class="text-2xl font-bold text-green-700 mb-2">✓ DO: Handle Errors Close to Source</h3>
+            <p class="text-lg text-gray-700">Catch errors where they happen, not far away!</p>
+        </div>
+
+        <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500">
+            <h3 class="text-2xl font-bold text-yellow-700 mb-2">⚠ CAREFUL: Don't Hide Important Errors</h3>
+            <p class="text-lg text-gray-700">Some errors should crash the program!</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: When to Use Error Handling -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">When to Use Error Handling</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="grid grid-cols-2 gap-6">
+        <div class="space-y-5">
+            <div class="bg-blue-50 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold text-blue-600 mb-3">✓ Use Try-Except For:</h3>
+                <ul class="text-xl text-gray-700 space-y-2">
+                    <li>📝 User input validation</li>
+                    <li>📁 File operations</li>
+                    <li>🌐 Network requests</li>
+                    <li>🔄 Type conversions</li>
+                    <li>📊 Dictionary/list access</li>
+                    <li>🔢 Math operations (division)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="space-y-5">
+            <div class="bg-gray-50 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold text-gray-700 mb-3">When NOT to Use:</h3>
+                <ul class="text-xl text-gray-700 space-y-2">
+                    <li>✗ Don't replace normal logic</li>
+                    <li>✗ Don't catch bugs (fix them!)</li>
+                    <li>✗ Don't hide problems</li>
+                </ul>
+            </div>
+
+            <div class="bg-green-50 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold text-green-600 mb-3">Remember:</h3>
+                <p class="text-xl text-gray-700">Error handling makes your program <span class="font-semibold">robust</span>, not perfect!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Real-World Example -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Real-World Example: Safe User Input</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="space-y-6">
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+            <div class="code-font text-xl text-gray-800 space-y-3">
+                <div>def get_age():</div>
+                <div>    while True:</div>
+                <div>        try:</div>
+                <div>            age = int(input(<span class="text-green-600">"Enter your age: "</span>))</div>
+                <div>            </div>
+                <div>            if age < 0 or age > 120:</div>
+                <div>                raise ValueError(<span class="text-green-600">"Age must be 0-120"</span>)</div>
+                <div>            </div>
+                <div>            return age</div>
+                <div>        </div>
+                <div>        except ValueError as e:</div>
+                <div>            print(<span class="text-green-600">f"Invalid: <span class="text-blue-600">{e}</span>. Try again!"</span>)</div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-semibold text-blue-600 mb-3">What This Does:</h3>
+            <ul class="text-xl text-gray-700 space-y-2">
+                <li>✓ Keeps asking until valid input</li>
+                <li>✓ Handles non-numeric input</li>
+                <li>✓ Validates age range</li>
+                <li>✓ Provides clear error messages</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 12: Debugging Strategies -->
+<div class="slide bg-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Debugging Strategies</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="grid grid-cols-2 gap-6">
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-blue-600 mb-4">Read Error Messages!</h3>
+            <ul class="text-lg text-gray-700 space-y-2">
+                <li>📍 Shows line number</li>
+                <li>🏷️ Shows exception type</li>
+                <li>💬 Describes the problem</li>
+                <li>📚 Shows the traceback</li>
+            </ul>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-green-600 mb-4">Print Debugging</h3>
+            <div class="code-font text-lg text-gray-800 space-y-2">
+                <div>print(<span class="text-green-600">f"Value: <span class="text-blue-600">{value}</span>"</span>)</div>
+                <div>print(<span class="text-green-600">f"Type: <span class="text-blue-600">{type(value)}</span>"</span>)</div>
+                <div>print(<span class="text-green-600">f"Length: <span class="text-blue-600">{len(data)}</span>"</span>)</div>
+            </div>
+        </div>
+
+        <div class="bg-purple-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-purple-600 mb-4">Test with Simple Cases</h3>
+            <p class="text-lg text-gray-700">Start with known inputs to isolate problems</p>
+        </div>
+
+        <div class="bg-yellow-50 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-yellow-600 mb-4">Break Down Complex Code</h3>
+            <p class="text-lg text-gray-700">Test each part separately</p>
+        </div>
+    </div>
+
+    <div class="mt-6 bg-blue-600 text-white p-6 rounded-lg text-center">
+        <p class="text-2xl font-semibold">Errors are learning opportunities!</p>
+    </div>
+</div>
+
+<!-- Slide 13: Key Concepts Summary -->
+<div class="slide bg-gradient-to-br from-blue-50 to-white flex flex-col p-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-8">Key Concepts</h2>
+    <div class="w-24 h-1 bg-blue-600 mb-10"></div>
+
+    <div class="grid grid-cols-2 gap-6">
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-blue-700 mb-3">✓ Try-Except Blocks</h3>
+            <p class="text-lg text-gray-700">Catch and handle errors gracefully</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-green-700 mb-3">✓ Specific Exceptions</h3>
+            <p class="text-lg text-gray-700">Catch exactly what you expect</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-purple-700 mb-3">✓ else Clause</h3>
+            <p class="text-lg text-gray-700">Runs when no error occurs</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-yellow-700 mb-3">✓ finally Clause</h3>
+            <p class="text-lg text-gray-700">Always runs for cleanup</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-red-700 mb-3">✓ Raising Exceptions</h3>
+            <p class="text-lg text-gray-700">Signal problems in your code</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-lg">
+            <h3 class="text-2xl font-bold text-indigo-700 mb-3">✓ Best Practices</h3>
+            <p class="text-lg text-gray-700">Helpful messages, specific catches</p>
+        </div>
+    </div>
+
+    <div class="mt-8 bg-blue-600 text-white p-6 rounded-lg text-center">
+        <p class="text-2xl font-semibold">Robust programs handle errors gracefully!</p>
+    </div>
+</div>
+
+<!-- Slide 14: Practice Time! -->
+<div class="slide bg-gradient-to-br from-blue-600 to-blue-400 flex flex-col items-center justify-center text-white">
+    <div class="text-center">
+        <svg class="w-32 h-32 mx-auto mb-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+        </svg>
+        <h1 class="text-6xl font-bold mb-6">Ready to Code!</h1>
+        <p class="text-3xl mb-8">Open the practice notebook to master error handling</p>
+        <div class="w-32 h-1 bg-white mx-auto mb-8"></div>
+        <p class="text-2xl">Build robust, professional programs!</p>
+        <div class="mt-8 text-yellow-300 text-3xl font-bold">
+            🎉 FINAL CHAPTER - You're Almost Done! 🎉
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
