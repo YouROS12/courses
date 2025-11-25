@@ -2,6 +2,7 @@
 """
 Create visually impressive PowerPoint presentations with rich content
 Uses colored blocks, multi-column layouts, and visual elements
+Automatically splits long content across multiple slides
 """
 
 import sys
@@ -13,6 +14,46 @@ from pptx.dml.color import RGBColor
 
 # Import comprehensive chapter content
 from chapter_content import CHAPTERS
+
+def add_slide_background(slide, prs):
+    """Add background elements to a content slide"""
+    left = top = Inches(0)
+    width = prs.slide_width
+    height = prs.slide_height
+
+    # White background
+    bg_shape = slide.shapes.add_shape(1, left, top, width, height)
+    bg_shape.fill.solid()
+    bg_shape.fill.fore_color.rgb = RGBColor(250, 250, 250)
+    bg_shape.line.fill.background()
+
+    # Colorful header section
+    header_bg = slide.shapes.add_shape(
+        1, Inches(0), Inches(0), width, Inches(1.2)
+    )
+    header_bg.fill.solid()
+    header_bg.fill.fore_color.rgb = RGBColor(0, 102, 204)
+    header_bg.line.fill.background()
+
+    # Decorative accent bar
+    accent_bar = slide.shapes.add_shape(
+        1, Inches(0), Inches(1.2), Inches(0.15), Inches(6.3)
+    )
+    accent_bar.fill.solid()
+    accent_bar.fill.fore_color.rgb = RGBColor(255, 187, 51)
+    accent_bar.line.fill.background()
+
+def add_slide_title(slide, title):
+    """Add title to a content slide"""
+    title_box = slide.shapes.add_textbox(
+        Inches(0.4), Inches(0.3), Inches(12), Inches(0.7)
+    )
+    title_frame = title_box.text_frame
+    title_frame.text = title
+    title_para = title_frame.paragraphs[0]
+    title_para.font.size = Pt(36)
+    title_para.font.bold = True
+    title_para.font.color.rgb = RGBColor(255, 255, 255)
 
 def add_title_slide(prs, title, subtitle=""):
     """Add a visually impressive title slide with gradient-style background"""
@@ -46,7 +87,7 @@ def add_title_slide(prs, title, subtitle=""):
     side_bar.fill.fore_color.rgb = RGBColor(255, 187, 51)
     side_bar.line.fill.background()
 
-    # Title with shadow effect (create shadow by adding duplicate slightly offset)
+    # Title
     title_box = slide.shapes.add_textbox(
         Inches(1.5), Inches(2.8), Inches(11), Inches(1.5)
     )
@@ -131,139 +172,8 @@ def add_section_slide(prs, title, description=""):
         desc_para.font.color.rgb = RGBColor(255, 255, 255)
         desc_para.alignment = PP_ALIGN.CENTER
 
-def add_content_slide(prs, title, content_items):
-    """Add a visually rich content slide with colored blocks"""
-    slide_layout = prs.slide_layouts[6]
-    slide = prs.slides.add_slide(slide_layout)
-
-    # White background
-    left = top = Inches(0)
-    width = prs.slide_width
-    height = prs.slide_height
-
-    bg_shape = slide.shapes.add_shape(1, left, top, width, height)
-    bg_shape.fill.solid()
-    bg_shape.fill.fore_color.rgb = RGBColor(250, 250, 250)
-    bg_shape.line.fill.background()
-
-    # Colorful header section
-    header_bg = slide.shapes.add_shape(
-        1, Inches(0), Inches(0), width, Inches(1.2)
-    )
-    header_bg.fill.solid()
-    header_bg.fill.fore_color.rgb = RGBColor(0, 102, 204)
-    header_bg.line.fill.background()
-
-    # Decorative accent bar
-    accent_bar = slide.shapes.add_shape(
-        1, Inches(0), Inches(1.2), Inches(0.15), Inches(6.3)
-    )
-    accent_bar.fill.solid()
-    accent_bar.fill.fore_color.rgb = RGBColor(255, 187, 51)
-    accent_bar.line.fill.background()
-
-    # Title
-    title_box = slide.shapes.add_textbox(
-        Inches(0.4), Inches(0.3), Inches(12), Inches(0.7)
-    )
-    title_frame = title_box.text_frame
-    title_frame.text = title
-    title_para = title_frame.paragraphs[0]
-    title_para.font.size = Pt(36)
-    title_para.font.bold = True
-    title_para.font.color.rgb = RGBColor(255, 255, 255)
-
-    # Content area with smart layout
-    if content_items:
-        current_y = 1.5
-        in_code_block = False
-        code_lines = []
-
-        for content in content_items:
-            if not content.strip():
-                continue
-
-            # Detect code blocks
-            is_code = (
-                '=' in content and not content.startswith('•') and
-                not ':' in content[:20] or
-                content.startswith('    ') or
-                any(keyword in content for keyword in ['def ', 'if ', 'for ', 'while ', 'import ', 'class '])
-            )
-
-            # Check if it's a section header
-            is_header = (
-                ':' in content and not content.startswith('•') and
-                not '=' in content and len(content) < 60
-            )
-
-            if is_code:
-                code_lines.append(content)
-                in_code_block = True
-                continue
-            elif in_code_block and code_lines:
-                # Render accumulated code block
-                current_y = add_code_block(slide, code_lines, current_y)
-                code_lines = []
-                in_code_block = False
-
-            if is_header:
-                # Add colored box for headers
-                header_height = 0.4
-                header_bg = slide.shapes.add_shape(
-                    1, Inches(0.4), Inches(current_y - 0.05),
-                    Inches(12.5), Inches(header_height)
-                )
-                header_bg.fill.solid()
-                header_bg.fill.fore_color.rgb = RGBColor(0, 120, 215)
-                header_bg.line.fill.background()
-
-                text_box = slide.shapes.add_textbox(
-                    Inches(0.6), Inches(current_y),
-                    Inches(12), Inches(header_height - 0.1)
-                )
-                text_frame = text_box.text_frame
-                p = text_frame.paragraphs[0]
-                p.text = content
-                p.font.size = Pt(20)
-                p.font.bold = True
-                p.font.color.rgb = RGBColor(255, 255, 255)
-
-                current_y += header_height + 0.1
-            else:
-                # Regular content
-                text_box = slide.shapes.add_textbox(
-                    Inches(0.5), Inches(current_y),
-                    Inches(12.3), Inches(0.35)
-                )
-                text_frame = text_box.text_frame
-                p = text_frame.paragraphs[0]
-                p.text = content
-
-                if content.startswith('•'):
-                    p.level = 1
-                    p.font.size = Pt(16)
-                    # Add colored bullet
-                    p.font.color.rgb = RGBColor(51, 51, 51)
-                else:
-                    p.font.size = Pt(17)
-                    p.font.color.rgb = RGBColor(51, 51, 51)
-
-                current_y += 0.30
-
-            # Break if running out of space
-            if current_y > 6.8:
-                break
-
-        # Render any remaining code block
-        if code_lines:
-            add_code_block(slide, code_lines, current_y)
-
 def add_code_block(slide, code_lines, y_position):
     """Add a visually styled code block"""
-    if y_position > 6.5:
-        return y_position
-
     code_text = '\n'.join(code_lines)
     line_count = len(code_lines)
     block_height = min(line_count * 0.25 + 0.2, 2.5)
@@ -303,89 +213,135 @@ def add_code_block(slide, code_lines, y_position):
 
     return y_position + block_height + 0.15
 
-def add_two_column_slide(prs, title, left_content, right_content):
-    """Add a slide with two columns for better visual layout"""
-    slide_layout = prs.slide_layouts[6]
-    slide = prs.slides.add_slide(slide_layout)
+def estimate_content_height(content, is_code=False, is_header=False):
+    """Estimate how much vertical space content will take"""
+    if is_code:
+        return 0.25 * len(content.split('\n')) + 0.2
+    elif is_header:
+        return 0.5
+    else:
+        return 0.30
 
-    # Background
-    left = top = Inches(0)
-    width = prs.slide_width
-    height = prs.slide_height
+def add_content_to_slides(prs, title, content_items):
+    """Add content, splitting across multiple slides as needed"""
+    slides_created = []
+    slide_num = 0
 
-    bg_shape = slide.shapes.add_shape(1, left, top, width, height)
-    bg_shape.fill.solid()
-    bg_shape.fill.fore_color.rgb = RGBColor(250, 250, 250)
-    bg_shape.line.fill.background()
+    i = 0
+    while i < len(content_items):
+        slide_num += 1
 
-    # Header
-    header_bg = slide.shapes.add_shape(
-        1, Inches(0), Inches(0), width, Inches(1.2)
-    )
-    header_bg.fill.solid()
-    header_bg.fill.fore_color.rgb = RGBColor(0, 102, 204)
-    header_bg.line.fill.background()
+        # Create new slide
+        slide_layout = prs.slide_layouts[6]
+        slide = prs.slides.add_slide(slide_layout)
+        slides_created.append(slide)
 
-    # Title
-    title_box = slide.shapes.add_textbox(
-        Inches(0.4), Inches(0.3), Inches(12), Inches(0.7)
-    )
-    title_frame = title_box.text_frame
-    title_frame.text = title
-    title_para = title_frame.paragraphs[0]
-    title_para.font.size = Pt(36)
-    title_para.font.bold = True
-    title_para.font.color.rgb = RGBColor(255, 255, 255)
+        # Add background and title
+        add_slide_background(slide, prs)
+        slide_title = title if slide_num == 1 else f"{title} (continued)"
+        add_slide_title(slide, slide_title)
 
-    # Left column background
-    left_bg = slide.shapes.add_shape(
-        1, Inches(0.3), Inches(1.5), Inches(6), Inches(5.7)
-    )
-    left_bg.fill.solid()
-    left_bg.fill.fore_color.rgb = RGBColor(240, 248, 255)
-    left_bg.line.fill.background()
+        # Add content with overflow detection
+        current_y = 1.5
+        in_code_block = False
+        code_lines = []
 
-    # Right column background
-    right_bg = slide.shapes.add_shape(
-        1, Inches(6.8), Inches(1.5), Inches(6), Inches(5.7)
-    )
-    right_bg.fill.solid()
-    right_bg.fill.fore_color.rgb = RGBColor(255, 250, 240)
-    right_bg.line.fill.background()
+        while i < len(content_items):
+            content = content_items[i]
 
-    # Left content
-    left_box = slide.shapes.add_textbox(
-        Inches(0.5), Inches(1.7), Inches(5.6), Inches(5.3)
-    )
-    left_frame = left_box.text_frame
-    left_frame.word_wrap = True
+            if not content.strip():
+                i += 1
+                continue
 
-    for i, content in enumerate(left_content):
-        if i == 0:
-            p = left_frame.paragraphs[0]
-        else:
-            p = left_frame.add_paragraph()
-        p.text = content
-        p.font.size = Pt(15)
-        p.font.color.rgb = RGBColor(51, 51, 51)
-        p.space_after = Pt(6)
+            # Detect content type
+            is_code = (
+                '=' in content and not content.startswith('•') and
+                not ':' in content[:20] or
+                content.startswith('    ') or
+                any(keyword in content for keyword in ['def ', 'if ', 'for ', 'while ', 'import ', 'class '])
+            )
 
-    # Right content
-    right_box = slide.shapes.add_textbox(
-        Inches(7), Inches(1.7), Inches(5.6), Inches(5.3)
-    )
-    right_frame = right_box.text_frame
-    right_frame.word_wrap = True
+            is_header = (
+                ':' in content and not content.startswith('•') and
+                not '=' in content and len(content) < 60
+            )
 
-    for i, content in enumerate(right_content):
-        if i == 0:
-            p = right_frame.paragraphs[0]
-        else:
-            p = right_frame.add_paragraph()
-        p.text = content
-        p.font.size = Pt(15)
-        p.font.color.rgb = RGBColor(51, 51, 51)
-        p.space_after = Pt(6)
+            # Estimate space needed
+            if is_code:
+                code_lines.append(content)
+                in_code_block = True
+                i += 1
+                continue
+            elif in_code_block and code_lines:
+                # Check if code block fits
+                code_height = estimate_content_height('\n'.join(code_lines), is_code=True)
+                if current_y + code_height > 6.8:
+                    # Doesn't fit, break to new slide
+                    break
+                # Render code block
+                current_y = add_code_block(slide, code_lines, current_y)
+                code_lines = []
+                in_code_block = False
+
+            # Check if current content fits
+            content_height = estimate_content_height(content, is_header=is_header)
+            if current_y + content_height > 6.8:
+                # Doesn't fit, break to new slide
+                break
+
+            # Add content to slide
+            if is_header:
+                # Add colored box for headers
+                header_height = 0.4
+                header_bg = slide.shapes.add_shape(
+                    1, Inches(0.4), Inches(current_y - 0.05),
+                    Inches(12.5), Inches(header_height)
+                )
+                header_bg.fill.solid()
+                header_bg.fill.fore_color.rgb = RGBColor(0, 120, 215)
+                header_bg.line.fill.background()
+
+                text_box = slide.shapes.add_textbox(
+                    Inches(0.6), Inches(current_y),
+                    Inches(12), Inches(header_height - 0.1)
+                )
+                text_frame = text_box.text_frame
+                p = text_frame.paragraphs[0]
+                p.text = content
+                p.font.size = Pt(20)
+                p.font.bold = True
+                p.font.color.rgb = RGBColor(255, 255, 255)
+
+                current_y += header_height + 0.1
+            else:
+                # Regular content
+                text_box = slide.shapes.add_textbox(
+                    Inches(0.5), Inches(current_y),
+                    Inches(12.3), Inches(0.35)
+                )
+                text_frame = text_box.text_frame
+                p = text_frame.paragraphs[0]
+                p.text = content
+
+                if content.startswith('•'):
+                    p.level = 1
+                    p.font.size = Pt(16)
+                    p.font.color.rgb = RGBColor(51, 51, 51)
+                else:
+                    p.font.size = Pt(17)
+                    p.font.color.rgb = RGBColor(51, 51, 51)
+
+                current_y += 0.30
+
+            i += 1
+
+        # Render any remaining code block on this slide
+        if code_lines and current_y < 6.8:
+            current_y = add_code_block(slide, code_lines, current_y)
+            code_lines = []
+            in_code_block = False
+
+    return len(slides_created)
 
 def create_rich_presentation(chapter_num, chapter_name, output_file):
     """Create a visually impressive presentation for a chapter"""
@@ -406,21 +362,27 @@ def create_rich_presentation(chapter_num, chapter_name, output_file):
     # Add title slide
     add_title_slide(prs, chapter_data['title'], chapter_data.get('subtitle', ''))
 
-    # Add content slides
+    # Add content slides (with auto-splitting for overflow)
+    total_slides = 1  # Start with title slide
     slide_count = len(chapter_data['slides'])
+
     for idx, slide_data in enumerate(chapter_data['slides']):
         # Every few slides, add a section divider if it's a major topic
-        if idx > 0 and idx % 4 == 0 and idx < slide_count - 1:
+        if idx > 0 and idx % 5 == 0 and idx < slide_count - 1:
             add_section_slide(prs, slide_data['title'].split(':')[0] if ':' in slide_data['title'] else slide_data['title'])
+            total_slides += 1
 
-        add_content_slide(prs, slide_data['title'], slide_data['content'])
+        # Add content slides (may create multiple if content is long)
+        slides_added = add_content_to_slides(prs, slide_data['title'], slide_data['content'])
+        total_slides += slides_added
 
     # Add final practice slide
     add_section_slide(prs, "Time to Practice!", f"Chapter {chapter_num} Exercises")
+    total_slides += 1
 
     # Save
     prs.save(output_file)
-    print(f"  Saved to {output_file} ({len(chapter_data['slides']) + 2} slides)")
+    print(f"  Saved to {output_file} ({total_slides} slides)")
 
 def main():
     """Create all visually impressive presentations"""
@@ -448,6 +410,7 @@ def main():
     print("  - Visual hierarchy with colored boxes")
     print("  - Professional gradient-style title slides")
     print("  - Information-rich content with visual appeal")
+    print("  - Auto-splits long content across multiple slides")
     print("=" * 70)
     print()
 
