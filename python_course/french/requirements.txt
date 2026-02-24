@@ -1,0 +1,32 @@
+# Python Course Requirements
+# Install with: pip install -r requirements.txt
+
+# Core dependencies for running notebooks
+jupyter>=1.0.0
+notebook>=6.5.0
+ipython>=8.0.0
+
+# Required for notebook exercises
+numpy>=1.24.0
+pandas>=2.0.0
+
+# For data visualization (used in some chapters)
+matplotlib>=3.7.0
+
+# For HTML/PowerPoint conversion tools
+python-pptx>=0.6.21
+Pillow>=10.0.0
+beautifulsoup4>=4.12.0
+
+# For working with JSON and CSV (built-in, but listed for reference)
+# json - built-in
+# csv - built-in
+
+# Optional but recommended
+# ipywidgets>=8.0.0  # For interactive notebook widgets
+# requests>=2.31.0   # For future API chapters
+
+# Development tools (optional)
+# pytest>=7.4.0      # For testing code examples
+# black>=23.0.0      # For code formatting
+# flake8>=6.0.0      # For code linting
