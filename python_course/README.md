@@ -1,184 +1,202 @@
-# Python Programming Course for Beginners
+# Python Programming Course / Cours de Programmation Python
+
+## 🌍 Available Languages / Langues Disponibles
+
+This course is available in two languages:
+Ce cours est disponible en deux langues :
+
+- **[English](english/README.md)** - Complete Python course for beginners
+- **[Français](french/README.md)** - Cours complet de Python pour débutants
+
+---
+
+## 📚 About This Course / À Propos de ce Cours
+
+### English
 
 Welcome to the **Complete Python Programming Course**! This comprehensive, hands-on course is designed to take you from absolute beginner to confident Python programmer.
 
-## 📚 Course Overview
+**What's Inside:**
+- 📖 **10 structured chapters** covering Python fundamentals to advanced concepts
+- 💻 **Interactive Jupyter notebooks** with hands-on exercises
+- 📊 **PowerPoint presentations** for visual learning
+- ✅ **6 progressive quizzes** to test your knowledge
+- 🎯 **Capstone project** to build real-world applications
+- 📝 **Quick reference cheat sheets** for every chapter
+- 🏆 **Pre-assessment tests** and progress tracking
 
-This course contains **10 structured chapters**, **6 progressive quizzes**, and a **comprehensive capstone project** that will teach you everything you need to start programming in Python. No prior programming experience required!
+**No prior programming experience required!**
 
-### What You'll Learn
+👉 **[Start Learning in English →](english/README.md)**
 
-- **Programming Fundamentals**: Variables, data types, operators, and basic I/O
-- **Control Flow**: Conditionals, loops, and logical operations
-- **Data Structures**: Lists, dictionaries, tuples, and sets
-- **Functions**: Writing reusable, modular code
-- **File Operations**: Reading and writing files (text, CSV, JSON)
-- **Error Handling**: Writing robust code with exception handling
-- **Real-World Projects**: Build practical applications from scratch
+---
 
-## 🗂️ Course Structure
+### Français
 
-### Chapters 1-10
+Bienvenue dans le **Cours Complet de Programmation Python** ! Ce cours complet et pratique est conçu pour vous faire passer de débutant absolu à programmeur Python confiant.
 
-Each chapter includes three learning formats:
-- **📊 Presentation** (`presentation.html`) - Visual slides for learning concepts
-- **📝 PowerPoint** (`presentation.pptx`) - Editable slides for instructors
-- **💻 Practice Notebook** (`practice.ipynb`) - Hands-on exercises in Jupyter/Colab
+**Contenu du Cours :**
+- 📖 **10 chapitres structurés** couvrant les fondamentaux de Python aux concepts avancés
+- 💻 **Cahiers Jupyter interactifs** avec exercices pratiques
+- 📊 **Présentations PowerPoint** pour l'apprentissage visuel
+- ✅ **6 quiz progressifs** pour tester vos connaissances
+- 🎯 **Projet final** pour construire des applications concrètes
+- 📝 **Fiches de référence rapide** pour chaque chapitre
+- 🏆 **Tests de pré-évaluation** et suivi de progression
 
-| Chapter | Topic | Key Concepts |
-|---------|-------|--------------|
-| [Chapter 1](chapter_01_introduction/) | Introduction to Python | Variables, data types, arithmetic operations |
-| [Chapter 2](chapter_02_working_with_data/) | Working with Data | User input, type conversion, string manipulation |
-| [Chapter 3](chapter_03_making_decisions/) | Making Decisions | Conditionals, booleans, if-else statements |
-| [Chapter 4](chapter_04_loops/) | Loops | While loops, for loops, range(), break/continue |
-| [Chapter 5](chapter_05_lists/) | Lists | List operations, indexing, slicing, methods |
-| [Chapter 6](chapter_06_dictionaries/) | Dictionaries | Key-value pairs, dictionary methods |
-| [Chapter 7](chapter_07_functions/) | Functions | Function definition, parameters, return values, scope |
-| [Chapter 8](chapter_08_tuples_and_sets/) | Tuples and Sets | Immutable tuples, unique sets, set operations |
-| [Chapter 9](chapter_09_file_io/) | File I/O | Reading/writing files, CSV, JSON handling |
-| [Chapter 10](chapter_10_error_handling/) | Error Handling | Try-except blocks, exception types, debugging |
+**Aucune expérience de programmation préalable n'est requise !**
 
-### Quizzes
+👉 **[Commencer l'Apprentissage en Français →](french/README.md)**
 
-Test your knowledge with progressive quizzes:
+---
 
-| Quiz | Covers | Format |
-|------|--------|--------|
-| [Quiz 1](quiz_01/) | Chapters 1-2 | Multiple choice, code prediction, debugging |
-| [Quiz 2](quiz_02/) | Chapters 3-4 | True/False, coding challenges |
-| [Quiz 3](quiz_03/) | Chapters 5-6 | Mixed format with answer key |
-| [Quiz 4](quiz_04/) | Chapters 8-9 | Practical coding problems |
-| [Quiz 5](quiz_05/) | Chapter 10 + Review | Exception handling focus |
-| [Quiz 6](quiz_06/) | Comprehensive | Final assessment of all concepts |
+## 📂 Repository Structure / Structure du Dépôt
 
-### Capstone Project
-
-Put everything together with a real-world project! Choose from three options:
-
-1. **Personal Expense Tracker** - Track income and expenses with JSON storage
-2. **Student Grade Manager** - Manage student records with CSV files
-3. **Simple Contact Manager** - Store and search contacts with data export
-
-📁 [View Capstone Project Details](capstone_project/)
-
-## 🚀 Getting Started
-
-### Quick Start (Recommended - No Installation Required!)
-
-1. **Open any chapter's practice notebook** (`.ipynb` file)
-2. **Click "Open in Colab"** at the top of the notebook
-3. **Start coding immediately** in your browser!
-
-All exercises are designed to run in Google Colab without any setup.
-
-### Local Installation
-
-If you prefer to work locally:
-
-```bash
-# Clone or download this repository
-git clone <repository-url>
-
-# Install required packages
-pip install -r requirements.txt
-
-# Open Jupyter notebooks
-jupyter notebook
+```
+python_course/
+├── README.md                    # This file / Ce fichier
+├── .gitignore                   # Git ignore patterns
+│
+├── english/                     # 🇬🇧 English version
+│   ├── README.md               # Course overview
+│   ├── GETTING_STARTED.md      # Setup instructions
+│   ├── SYLLABUS.md             # Detailed syllabus
+│   ├── chapter_01_introduction/
+│   ├── chapter_02_working_with_data/
+│   ├── ... (chapters 3-10)
+│   ├── quiz_01/ ... quiz_06/
+│   ├── cheat_sheets/
+│   ├── additional_practice/
+│   ├── capstone_project/
+│   └── requirements.txt
+│
+└── french/                      # 🇫🇷 Version française
+    ├── README.md               # Aperçu du cours
+    ├── GETTING_STARTED.md      # Instructions de configuration
+    ├── SYLLABUS.md             # Programme détaillé
+    ├── chapter_01_introduction/
+    ├── chapter_02_working_with_data/
+    ├── ... (chapitres 3-10)
+    ├── quiz_01/ ... quiz_06/
+    ├── cheat_sheets/
+    ├── additional_practice/
+    ├── capstone_project/
+    └── requirements.txt
 ```
 
-📖 **Detailed Setup Instructions**: See [GETTING_STARTED.md](GETTING_STARTED.md)
+---
 
-## 📅 Recommended Study Path
+## 🚀 Quick Start / Démarrage Rapide
 
-### Self-Paced Learning
+### English Version
 
-- **Beginner Track**: 2-3 chapters per week (10-12 weeks total)
-- **Intensive Track**: 1 chapter per day (2 weeks total)
-- **Casual Track**: 1 chapter per week (10 weeks total)
+1. **Navigate to the English folder:**
+   ```bash
+   cd python_course/english
+   ```
 
-### Study Routine
+2. **Choose your learning method:**
+   - **Google Colab (Recommended):** Click "Open in Colab" in any `.ipynb` notebook
+   - **Local Installation:** Follow instructions in [GETTING_STARTED.md](english/GETTING_STARTED.md)
 
-1. **Watch/Read Presentation** (30-45 minutes)
-2. **Complete Practice Exercises** (60-90 minutes)
-3. **Take Quiz** after every 2 chapters (30 minutes)
-4. **Build Capstone Project** (4-6 hours)
+3. **Start with Chapter 1:**
+   - Read the presentation slides
+   - Open `chapter_01_introduction/introduction_to_python_practice.ipynb`
+   - Start coding!
 
-📊 **Complete Syllabus**: See [SYLLABUS.md](SYLLABUS.md) for detailed learning objectives and time estimates.
+📖 **[Full English Documentation →](english/README.md)**
 
-## 📖 Additional Resources
+---
 
-- **[Quick Reference Sheets](cheat_sheets/)** - One-page summaries for each chapter
-- **[FAQ & Troubleshooting](FAQ.md)** - Common questions and solutions
-- **[Progress Tracker](PROGRESS_TRACKER.md)** - Track your learning journey
-- **[Additional Practice Problems](additional_practice/)** - Extra exercises for deeper learning
-- **[Pre-Assessment Test](pre_assessment/)** - Gauge your starting skill level
+### Version Française
 
-## 👨‍🏫 For Instructors
+1. **Naviguez vers le dossier français :**
+   ```bash
+   cd python_course/french
+   ```
 
-Teaching this course? Check out these resources:
+2. **Choisissez votre méthode d'apprentissage :**
+   - **Google Colab (Recommandé) :** Cliquez sur "Ouvrir dans Colab" dans n'importe quel cahier `.ipynb`
+   - **Installation Locale :** Suivez les instructions dans [GETTING_STARTED.md](french/GETTING_STARTED.md)
 
-- **[Instructor Guide](INSTRUCTOR_GUIDE.md)** - Teaching notes, answer keys, and timing suggestions
-- **[Editable PowerPoints](chapter_*/presentation.pptx)** - Customize for your classroom
-- **[Assessment Rubrics](INSTRUCTOR_GUIDE.md#assessment-rubrics)** - Grade student work consistently
+3. **Commencez avec le Chapitre 1 :**
+   - Lisez les diapositives de présentation
+   - Ouvrez `chapter_01_introduction/introduction_to_python_practice.ipynb`
+   - Commencez à coder !
 
-## 🛠️ Course Tools
+📖 **[Documentation Complète en Français →](french/README.md)**
 
-The `tools/` directory contains utilities for content creation:
+---
 
-- **HTML to PowerPoint Converter** - Convert web presentations to PPTX format
-- **Batch Conversion Scripts** - Process multiple presentations at once
+## 📋 Course Contents / Contenu du Cours
 
-## 💡 Learning Tips
+### Chapters / Chapitres 1-10
 
-1. **Code Along**: Don't just read - type every example yourself
-2. **Experiment**: Modify examples to see what happens
-3. **Debug Your Mistakes**: Errors are learning opportunities
-4. **Build Projects**: Apply concepts to your own project ideas
-5. **Practice Daily**: Consistency beats marathon coding sessions
-6. **Ask Questions**: Use the FAQ or online communities when stuck
+| Chapter<br>Chapitre | Topic<br>Sujet | English | Français |
+|---------------------|----------------|---------|----------|
+| 1 | Introduction to Python<br>Introduction à Python | [📂](english/chapter_01_introduction/) | [📂](french/chapter_01_introduction/) |
+| 2 | Working with Data<br>Travailler avec les Données | [📂](english/chapter_02_working_with_data/) | [📂](french/chapter_02_working_with_data/) |
+| 3 | Making Decisions<br>Prendre des Décisions | [📂](english/chapter_03_making_decisions/) | [📂](french/chapter_03_making_decisions/) |
+| 4 | Loops<br>Boucles | [📂](english/chapter_04_loops/) | [📂](french/chapter_04_loops/) |
+| 5 | Lists<br>Listes | [📂](english/chapter_05_lists/) | [📂](french/chapter_05_lists/) |
+| 6 | Dictionaries<br>Dictionnaires | [📂](english/chapter_06_dictionaries/) | [📂](french/chapter_06_dictionaries/) |
+| 7 | Functions<br>Fonctions | [📂](english/chapter_07_functions/) | [📂](french/chapter_07_functions/) |
+| 8 | Tuples and Sets<br>Tuples et Ensembles | [📂](english/chapter_08_tuples_and_sets/) | [📂](french/chapter_08_tuples_and_sets/) |
+| 9 | File I/O<br>Entrées/Sorties Fichiers | [📂](english/chapter_09_file_io/) | [📂](french/chapter_09_file_io/) |
+| 10 | Error Handling<br>Gestion des Erreurs | [📂](english/chapter_10_error_handling/) | [📂](french/chapter_10_error_handling/) |
 
-## 📈 Track Your Progress
+---
 
-Use the [Progress Tracker](PROGRESS_TRACKER.md) to:
-- ✅ Mark completed chapters and quizzes
-- 📝 Note challenging concepts for review
-- 🎯 Set and track learning goals
-- 🏆 Celebrate your achievements!
+## 💡 Learning Tips / Conseils d'Apprentissage
 
-## 🤝 Contributing
+### English
+- 🎯 **Code every day** - Consistency is key
+- 🧪 **Experiment** - Don't be afraid to modify examples
+- 🐛 **Debug your mistakes** - Errors are learning opportunities
+- 🚀 **Build projects** - Apply concepts to real problems
 
-Found a typo or have a suggestion? Contributions are welcome!
+### Français
+- 🎯 **Codez chaque jour** - La régularité est essentielle
+- 🧪 **Expérimentez** - N'ayez pas peur de modifier les exemples
+- 🐛 **Déboguez vos erreurs** - Les erreurs sont des opportunités d'apprentissage
+- 🚀 **Créez des projets** - Appliquez les concepts à de vrais problèmes
 
+---
+
+## 🤝 Contributing / Contribuer
+
+### English
+Contributions are welcome! If you find typos, errors, or have suggestions:
 1. Fork the repository
 2. Create a feature branch
 3. Make your improvements
 4. Submit a pull request
 
-## 📄 License
+### Français
+Les contributions sont les bienvenues ! Si vous trouvez des fautes de frappe, des erreurs, ou avez des suggestions :
+1. Forkez le dépôt
+2. Créez une branche de fonctionnalité
+3. Apportez vos améliorations
+4. Soumettez une pull request
+
+---
+
+## 📄 License / Licence
 
 This course is provided for educational purposes. Feel free to use it for learning, teaching, or sharing with others interested in learning Python.
 
-## 🌟 What's Next?
-
-After completing this course, you'll be ready to:
-
-- **Build your own Python applications**
-- **Explore specialized libraries** (pandas, numpy, matplotlib)
-- **Learn web development** with Flask or Django
-- **Dive into data science** and machine learning
-- **Automate tasks** and boost your productivity
-- **Contribute to open-source projects**
+Ce cours est fourni à des fins éducatives. N'hésitez pas à l'utiliser pour apprendre, enseigner ou partager avec d'autres personnes intéressées par l'apprentissage de Python.
 
 ---
 
-**Ready to start your Python journey? Open [Chapter 1](chapter_01_introduction/) and begin coding!**
+## 🌟 Ready to Start? / Prêt à Commencer ?
 
-## 📞 Support
+**Choose your language and begin your Python journey today!**
+**Choisissez votre langue et commencez votre parcours Python aujourd'hui !**
 
-- **Questions about content?** Check the [FAQ](FAQ.md)
-- **Technical issues?** See [GETTING_STARTED.md](GETTING_STARTED.md)
-- **Want to share feedback?** Open an issue or contribute!
+### English → [Get Started](english/README.md)
+### Français → [Commencer](french/README.md)
 
 ---
 
-*Happy Coding! 🐍*
+*Happy Coding! / Bon Codage! 🐍*
